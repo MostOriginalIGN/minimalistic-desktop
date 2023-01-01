@@ -232,11 +232,10 @@ function init() {
 	} else {
 		console.log("No Lively Wallpaper")
 	}
-	setInterval(nextBackground, 60000);
+	setInterval(nextBackground, 1000 * 60);
 	nextBackground();
 	setInterval(update, 1000);
 	setInterval(updateWeather, 1000 * 60 * 10);
-	setInterval(updateClock, 1000 * 60);
 	update();
 	updateWeather();
 }
