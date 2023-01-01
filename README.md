@@ -6,6 +6,11 @@ cool minimalistic web desktop thing
 
 To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) for Windows and [`Plash`](https://github.com/sindresorhus/Plash) for MacOS
 
+## Download
+[Download](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.0.0.zip)
+
+For Lively Wallpaper drag&drop zip file to window. For Plash unzip and select `index.html` as file.
+
 # IMPORTANT!!!
 **API KEY NEEDED FOR WEATHER!**
 
