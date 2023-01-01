@@ -223,8 +223,8 @@ function init() {
 	if (window.showAMPM != undefined) {
 		api = window.api;
 		milTime = window.milTime;
-		numImg = parseInt(window.numImg);
-		wallpaperType = parseInt(window.wallpaperType);
+		numImg = window.numImg;
+		wallpaperType = window.wallpaperType;
 		celsius = window.celsius;
 		showSec = window.showSec;
 		showAMPM = window.showAMPM;
