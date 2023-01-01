@@ -6,10 +6,10 @@
 const api = 'PUT OPENWEATHERMAP API KEY HERE'
 const numImg = 1 // How Many Images You Put
 const wallpaperType = 1 // 0 = random local, 1 = random online
-const milTime = false;
+const milTime = true;
 const celsius = false;
 const showSec = true;
-const showAMPM = true;
+const showAMPM = false;
 // END CONFIG
 
 const wrapper = document.createElement('div');
