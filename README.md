@@ -1,3 +1,4 @@
+
 # minimalistic desktop
 cool minimalistic web desktop thing
  
@@ -7,6 +8,42 @@ To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) fo
 
 For [`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playing-server)
 
+# IMPORTANT!!!
+**API KEY NEEDED FOR WEATHER!**
+
+[`OpenWeatherMap`](https://openweathermap.org/price)
+Basic API is Free with 60 calls/minute  and 1,000,000 calls/month
+
+EDIT CONFIG IN `index.json`
+
+## Config:
+
+Original Config:
+```
+// CONFIG
+
+const  api = 'PUT OPENWEATHERMAP API KEY HERE'
+
+const  numImg = 1  // How Many Images You Put
+
+const  wallpaperType = 1  // 0 = random local, 1 = random online
+
+// END CONFIG
+```
+
+## Use Local Images
+In `/Resources` put your images in `.jpg` format labeled from 1 - <no. of imgs>
+
+Ex:
+```
+1.jpg
+2.jpg
+3.jpg
+```
+In `index.js` at the top of the file. set `numImg` to how many images you put and `wallpaperType` to 0
+##
+
+
 i fucked up repos and stuff oops so
 past commits
 |ID     |Author      |Date      |Commit                                                 |
@@ -15,7 +52,7 @@ past commits
 |4efdfb9|Astrogamer54|12/31/2022|fix variable names and comment code                    |
 |617f2a6|Astrogamer54|12/31/2022|Typewriter Fix                                         |
 |88bb015|Astrogamer54|12/31/2022|geolocation                                            |
-|2439ef4|Astrogamer54|12/31/2022|geolocation                                            |
+|2439ef4|Astrogamer54|12/31/2022|geolocation (also removes rain)                                            |
 |2d38f69|Astrogamer54|12/30/2022|kinda fix but broke effect                             |
 |6587b08|Astrogamer54|12/27/2022|FINALLY FIXED TYPEWRITER EFFECT OML                    |
 |6ea84c5|Astrogamer54|12/24/2022|Typewriter Effect                                      |
