@@ -6,6 +6,10 @@
 const api = 'PUT OPENWEATHERMAP API KEY HERE'
 const numImg = 1 // How Many Images You Put
 const wallpaperType = 1 // 0 = random local, 1 = random online
+const milTime = false;
+const celsius = false;
+const showSec = true;
+const showAMPM = true;
 // END CONFIG
 
 const wrapper = document.createElement('div');
@@ -54,7 +58,7 @@ console.log(current)
 
 // Set the current background to a random number
 function nextBackground() {
-	switch(wallpaperType){
+	switch (wallpaperType) {
 		case 0:
 			console.log('local');
 			current = (Math.floor(Math.random() * numImg) + 1)
@@ -137,8 +141,9 @@ function updateWeatherGet(lat, lon) {
 		})
 		.then((data) => {
 			console.log(data);
+
 			return {
-				temp: Math.floor((data.main.temp - 273.15) * 9 / 5 + 32) + "°F",
+				temp: celsius ? Math.floor(data.main.temp - 273.15) + "°C" : Math.floor((data.main.temp - 273.15) * 9 / 5 + 32) + "°F",
 				sum: data.weather[0].description,
 				icon: data.weather[0].icon
 			}
@@ -185,14 +190,30 @@ function clock(time) {
 	let h = time.h;
 	let m = time.m;
 	let s = time.s;
-	if (m < 10) {
-		m = "0" + m;
+	
+	// Store the original value of h
+	let origH = h;
+
+	if (!milTime) {
+	  // Convert h to a 12-hour clock format
+	  h = h % 12 || 12; // If h is 0, set h to 12
+	  let times = h + (m < 10 ? ":0" + m : ":" + m);
+	  if (showSec) {
+		times += (s < 10 ? ":0" + s : ":" + s); 
+	  }
+	  if (showAMPM) {
+		times += (origH >= 12 ? " PM" : " AM");
+	  }
+	  return times;
 	}
-	if (s < 10) {
-		s = "0" + s;
-	}
-	return `${h}:${m}:${s}`
-}
+  
+	// Convert m and s to strings, and add a leading zero if they are less than 10
+	m = m < 10 ? "0" + m : "" + m;
+	s = s < 10 ? "0" + s : "" + s;
+	return showSec ? `${h}:${m}:${s}` : `${h}:${m}`;
+  }
+  
+
 
 // Format the date in the format "Day, Month Day"
 function date(time) {

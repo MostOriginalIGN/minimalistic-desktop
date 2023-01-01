@@ -30,6 +30,7 @@ bot {
   transform: translate(-50%,50%);
   color: white;
   transition: all 5s;
+  white-space: nowrap;   
 }
 clock {
   display: block;
