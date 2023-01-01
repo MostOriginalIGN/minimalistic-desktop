@@ -9,7 +9,7 @@ To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) fo
 ## Download
 [Download](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.0.zip)
 
-For Lively Wallpaper drag&drop zip file to window. 
+For Lively Wallpaper import manually. Support coming soon!
 
 For Mac paste this line of code into Terminal and run
 `curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.sh | sh`
