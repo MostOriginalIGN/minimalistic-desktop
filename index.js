@@ -235,7 +235,7 @@ function init() {
 	setInterval(nextBackground, 1000 * 60);
 	nextBackground();
 	setInterval(update, 1000);
-	setInterval(updateWeather, 1000 * 60 * 10);
+	setInterval(updateWeather, 1000 * 60 * 20);
 	update();
 	updateWeather();
 }
