@@ -1,0 +1,12 @@
+{
+    "AppVersion": "1.1.0",
+    "Title": "minimalistic desktop",
+    "Thumbnail": "minimalisticdesktop.png",
+    "Preview": "minimalisticdesktop.gif",
+    "Desc": "cool minimalistic web desktop thing",
+    "Author": "Astrogamer54",
+    "License": "MIT",
+    "Contact": "https://github.com/Astrogamer54/minimalistic-desktop",
+    "Type": 1,
+    "FileName": "index.html"
+}

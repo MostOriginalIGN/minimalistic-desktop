@@ -3,13 +3,13 @@
 // IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
 
 // CONFIG
-const api = 'PUT OPENWEATHERMAP API KEY HERE'
-const numImg = 1 // How Many Images You Put
-const wallpaperType = 1 // 0 = random local, 1 = random online
-const milTime = true;
-const celsius = false;
-const showSec = true;
-const showAMPM = false;
+let api = 'PUT OPENWEATHERMAP API KEY HERE'
+let numImg = 1 // How Many Images You Put
+let wallpaperType = 1 // 0 = random local, 1 = random online
+let milTime = true;
+let celsius = false;
+let showSec = true;
+let showAMPM = false;
 // END CONFIG
 
 const wrapper = document.createElement('div');
@@ -76,8 +76,7 @@ function nextBackground() {
 	}
 }
 
-setInterval(nextBackground, 60000);
-nextBackground();
+
 
 // Update the clock if it is different than the provided string
 function updateClock(string) {
@@ -164,12 +163,6 @@ function updateWeatherGet(lat, lon) {
 		});
 }
 
-setInterval(update, 1000);
-setInterval(updateWeather, 1000 * 60 * 10);
-setInterval(updateClock, 1000 * 60);
-update();
-updateWeather();
-
 
 // Get the current time, date, and day of the week
 function getTime() {
@@ -190,29 +183,29 @@ function clock(time) {
 	let h = time.h;
 	let m = time.m;
 	let s = time.s;
-	
+
 	// Store the original value of h
 	let origH = h;
 
 	if (!milTime) {
-	  // Convert h to a 12-hour clock format
-	  h = h % 12 || 12; // If h is 0, set h to 12
-	  let times = h + (m < 10 ? ":0" + m : ":" + m);
-	  if (showSec) {
-		times += (s < 10 ? ":0" + s : ":" + s); 
-	  }
-	  if (showAMPM) {
-		times += (origH >= 12 ? " PM" : " AM");
-	  }
-	  return times;
+		// Convert h to a 12-hour clock format
+		h = h % 12 || 12; // If h is 0, set h to 12
+		let times = h + (m < 10 ? ":0" + m : ":" + m);
+		if (showSec) {
+			times += (s < 10 ? ":0" + s : ":" + s);
+		}
+		if (showAMPM) {
+			times += (origH >= 12 ? " PM" : " AM");
+		}
+		return times;
 	}
-  
+
 	// Convert m and s to strings, and add a leading zero if they are less than 10
 	m = m < 10 ? "0" + m : "" + m;
 	s = s < 10 ? "0" + s : "" + s;
 	return showSec ? `${h}:${m}:${s}` : `${h}:${m}`;
-  }
-  
+}
+
 
 
 // Format the date in the format "Day, Month Day"
@@ -225,6 +218,29 @@ function date(time) {
 	return `${fd}, ${months[mo]} ${d}`;
 }
 
+function init() {
+	// Lively Wallpaper?
+	if (window.showAMPM != undefined) {
+		api = window.api;
+		milTime = window.milTime;
+		numImg = window.numImg;
+		wallpaperType = window.wallpaperType;
+		celsius = window.celsius;
+		showSec = window.showSec;
+		showAMPM = window.showAMPM;
+		console.log("Lively Wallpaper");
+	} else {
+		console.log("No Lively Wallpaper")
+	}
+	setInterval(nextBackground, 60000);
+	nextBackground();
+	setInterval(update, 1000);
+	setInterval(updateWeather, 1000 * 60 * 10);
+	setInterval(updateClock, 1000 * 60);
+	update();
+	updateWeather();
+}
+setTimeout(init, 1000);
 // Wait for the DOM to load and then remove the splash screen and show the clock, weather, and date
 window.addEventListener('DOMContentLoaded', function () {
 	this.setTimeout(() => {
@@ -232,5 +248,6 @@ window.addEventListener('DOMContentLoaded', function () {
 		this.document.getElementsByClassName('weather')[0].classList.add('loaded');
 		this.document.getElementsByClassName('clock')[0].classList.add('clockLoaded');
 		this.document.getElementById('cdiv').classList.add('divLoaded');
+		console.log('hiii')
 	}, "4000")
 })

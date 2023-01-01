@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="index.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -15,7 +18,44 @@
   <bot>
 
   </bot>
-  
-  
+
+
 </body>
+
+<script type="text/javascript">
+  // Lively Auto Config
+  function livelyPropertyListener(name, val) {
+    switch (name) {
+      case "api":
+        var api = val;
+        window.api = api;
+        console.log(name, val);
+      case "milTime":
+        var milTime = val;
+        window.milTime = milTime;
+        console.log(name, val);
+      case "numImg":
+        var numImg = val;
+        window.numImg = numImg;
+        console.log(name, val);
+      case "wallpaperType":
+        var wallpaperType = val;
+        window.wallpaperType = wallpaperType;
+        console.log(name, val);
+      case "celsius":
+        var celsius = val;
+        window.celsius = celsius;
+        console.log(name, val);
+      case "showSec":
+        var showSec = val;
+        window.showSec = showSec;
+        console.log(name, val);
+      case "showAMPM":
+        var showAMPM = val;
+        window.showAMPM = showAMPM;
+        console.log(name, val);
+    }
+  }
+</script>
+
 </html>

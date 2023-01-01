@@ -1,0 +1,37 @@
+{
+    "api": {
+        "text": "Enter API Key",
+        "type": "textbox",
+        "value": "OpenWeatherMap API Key"
+    },
+    "milTime": {
+        "type": "checkbox",
+        "value": true,
+        "text": "24 Hour Time"
+    },
+    "numImg": {
+        "text": "Number of images",
+        "type": "textbox",
+        "value": "1"
+    },
+    "wallpaperType": {
+        "text": "0 = random local, 1 = random online",
+        "type": "textbox",
+        "value": "1"
+    },
+    "celsius": {
+        "type": "checkbox",
+        "value": false,
+        "text": "Celsius"
+    },
+    "showSec": {
+        "type": "checkbox",
+        "value": true,
+        "text": "Show Seconds"
+    },
+    "showAMPM": {
+        "type": "checkbox",
+        "value": true,
+        "text": "show AM/PM"
+    } 
+}

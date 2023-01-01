@@ -138,8 +138,9 @@ function getData() {
       }
     })
     .catch(error => {
-      console.error(error);
+      console.log("now-playing-server not detected");
     });
+
 }
 
 // Call the getData function every 1000ms (1 second)
