@@ -1,7 +1,12 @@
 'use strict';
 
 // IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
+
+// CONFIG
 const api = 'PUT OPENWEATHERMAP API KEY HERE'
+const numImg = 1 // How Many Images You Put
+const wallpaperType = 1 // 0 = random local, 1 = random online
+// END CONFIG
 
 const wrapper = document.createElement('div');
 wrapper.id = 'datediv';
@@ -44,15 +49,31 @@ var header = $('body');
 
 var stillRaining = false;
 
-// Generate a random number between 1 and 24
-var current = (Math.floor(Math.random() * 24) + 1);
+var current = (Math.floor(Math.random() * numImg) + 1);
 console.log(current)
 
 // Set the current background to a random number
 function nextBackground() {
-	current = (Math.floor(Math.random() * 24) + 1)
-	header.css('background', `url('./Resources/${current}.jpg') no-repeat center/cover`);
+	switch(wallpaperType){
+		case 0:
+			console.log('local');
+			current = (Math.floor(Math.random() * numImg) + 1)
+			header.css('background', `url('./Resources/${current}.jpg') no-repeat center/cover`);
+			return;
+		case 1:
+			console.log('online');
+			var a = (Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1) // random # so the image actually updates
+			header.css('background', `url('https://picsum.photos/seed/${a}/1920/1080') no-repeat center/cover`);
+			// Prevents White Flash
+			setTimeout(() => {
+				$('html').css('background', `url('https://picsum.photos/seed/${a}/1920/1080') no-repeat center/cover`);
+			}, "1000")
+			return;
+	}
 }
+
+setInterval(nextBackground, 60000);
+nextBackground();
 
 // Update the clock if it is different than the provided string
 function updateClock(string) {
