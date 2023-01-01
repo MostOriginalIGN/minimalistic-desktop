@@ -9,13 +9,11 @@ To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) fo
 ## Download
 [Download](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.0.zip)
 
-For Lively Wallpaper import manually. Support coming soon!
+For Windows With Lively Wallpaper, open Powershell, paste this line of code and run
+`iwr -useb https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.ps1 | iex`
 
 For Mac paste this line of code into Terminal and run
 `curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.sh | sh`
-
-Manual Install
-For Plash unzip and select `index.html` as file.
 
 # IMPORTANT!!!
 **API KEY NEEDED FOR WEATHER!**
@@ -29,6 +27,11 @@ EDIT CONFIG IN `index.json`
 [`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playing-server)
 
 ## Config:
+
+Lively Wallpaper:
+**Use Config in Lively Wallpaper Customization**
+
+Other:
 
 Original Config:
 ```
@@ -64,7 +67,7 @@ past commits
 |4efdfb9|Astrogamer54|12/31/2022|fix variable names and comment code                    |
 |617f2a6|Astrogamer54|12/31/2022|Typewriter Fix                                         |
 |88bb015|Astrogamer54|12/31/2022|geolocation                                            |
-|2439ef4|Astrogamer54|12/31/2022|geolocation (also removes rain)                                            |
+|2439ef4|Astrogamer54|12/31/2022|geolocation (also removes rain)                        |
 |2d38f69|Astrogamer54|12/30/2022|kinda fix but broke effect                             |
 |6587b08|Astrogamer54|12/27/2022|FINALLY FIXED TYPEWRITER EFFECT OML                    |
 |6ea84c5|Astrogamer54|12/24/2022|Typewriter Effect                                      |
