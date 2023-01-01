@@ -1,5 +1,8 @@
 'use strict';
 
+// IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
+const api = 'PUT OPENWEATHERMAP API KEY HERE'
+
 const wrapper = document.createElement('div');
 wrapper.id = 'datediv';
 const wWrapper = document.createElement('div');
@@ -38,8 +41,6 @@ weatherIco.id = 'wIco';
 wWrapper.appendChild(weatherIco);
 
 var header = $('body');
-
-const api = '388d2a4a9cc90d656d5420e6f82080ec'
 
 var stillRaining = false;
 
@@ -109,7 +110,7 @@ function updateWeather() {
 
 // Get the weather data from the OpenWeatherMap API and update the weather and temperature
 function updateWeatherGet(lat, lon) {
-	fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=967e45a1b18de11ee1ddb9212d586841`)
+	fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api}`)
 		.then((response) => {
 			return response.json();
 		})
