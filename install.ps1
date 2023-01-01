@@ -67,7 +67,7 @@ if ($PSVersionTable.PSVersion.Major -gt $PSMinVersion) {
 
   if (-not $version) {
     $latest_release_uri =
-    "https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases"
+    "https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest"
     Write-Part "DOWNLOADING    "; Write-Emphasized $latest_release_urisp_dir
     $latest_release_json = Invoke-WebRequest -Uri $latest_release_uri -UseBasicParsing
     Write-Done
