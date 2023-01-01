@@ -6,8 +6,6 @@ cool minimalistic web desktop thing
 
 To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) for Windows and [`Plash`](https://github.com/sindresorhus/Plash) for MacOS
 
-For [`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playing-server)
-
 # IMPORTANT!!!
 **API KEY NEEDED FOR WEATHER!**
 
@@ -15,6 +13,9 @@ For [`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playin
 Basic API is Free with 60 calls/minute  and 1,000,000 calls/month
 
 EDIT CONFIG IN `index.json`
+
+**FOR SPOTIFY AND WEBNOWPLAYING SUPPORT NOW-PLAYING-SERVER IS NEEDED**
+[`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playing-server)
 
 ## Config:
 
