@@ -155,6 +155,7 @@ function updateWeatherGet(lat, lon) {
 		})
 		.catch(error => {
 			console.error(error);
+			$('#wIco').attr('src', "./Resources/icons/unknown.png");
 		});
 }
 
