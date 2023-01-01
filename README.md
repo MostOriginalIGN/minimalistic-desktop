@@ -1,9 +1,7 @@
 # minimalistic desktop
- cool minimalist
-
-https://user-images.githubusercontent.com/78519393/210159225-b7962e08-03ca-4c6c-aa59-fb39bd3cf510.mp4
-
-ic web desktop thing
+cool minimalistic web desktop thing
+ 
+![minimalisticdesktop](https://user-images.githubusercontent.com/78519393/210159265-4d1c10fc-436a-4865-9ff3-86f848a65707.gif)
 
 To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) for Windows and [`Plash`](https://github.com/sindresorhus/Plash) for MacOS
 
