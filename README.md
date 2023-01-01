@@ -42,7 +42,7 @@ Ex:
 3.jpg
 ```
 In `index.js` at the top of the file. set `numImg` to how many images you put and `wallpaperType` to 0
-##
+#
 
 
 i fucked up repos and stuff oops so
