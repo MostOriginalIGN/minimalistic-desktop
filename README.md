@@ -9,7 +9,13 @@ To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) fo
 ## Download
 [Download](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.0.0.zip)
 
-For Lively Wallpaper drag&drop zip file to window. For Plash unzip and select `index.html` as file.
+For Lively Wallpaper drag&drop zip file to window. 
+
+For Mac paste this line of code into Terminal and run
+`curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.sh | sh`
+
+Manual Install
+For Plash unzip and select `index.html` as file.
 
 # IMPORTANT!!!
 **API KEY NEEDED FOR WEATHER!**
