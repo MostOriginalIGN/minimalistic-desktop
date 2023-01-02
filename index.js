@@ -248,9 +248,16 @@ function compareVersions(latestVersion, currentVersion) {
 				return (false);
 			}
 		}
+		
+		if(currentParts[latestParts.length+1] = undefined){
+			console.log(`${currentVersion} is equal to ${latestVersion}`);
+			return (false);
+		}
 
-		console.log(`${currentVersion} is equal`);
-		return (false);
+		console.log(`${latestVersion} is greater`);
+		return (true);
+
+		
 	}
 
 	// If only one version contains "beta", return true if the version without "beta" is greater
@@ -280,7 +287,7 @@ function compareVersions(latestVersion, currentVersion) {
 		}
 	}
 
-	console.log(`${currentVersion} is equal`);
+	console.log(`${currentVersion} is equal to ${latestVersion}`);
 	return (false);
 }
 
