@@ -10,7 +10,7 @@ cool minimalistic web desktop thing
 To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) for Windows and [`Plash`](https://github.com/sindresorhus/Plash) for MacOS
 
 ## Download
-[![Download icon](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Download&query=$.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.1.zip)
+[![Download icon](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Download&query=$.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.2.zip)
 
 For Windows With Lively Wallpaper, open Powershell, paste this line of code and run
 
