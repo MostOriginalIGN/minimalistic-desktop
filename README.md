@@ -2,7 +2,7 @@
 # minimalistic desktop
 cool minimalistic web desktop thing
 
-![GitHub all releases](https://img.shields.io/github/downloads/Astrogamer54/minimalistic-desktop/total) ![GitHub](https://img.shields.io/github/license/Astrogamer54/minimalistic-desktop) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop)
 ![minimalisticdesktop](https://user-images.githubusercontent.com/78519393/210159265-4d1c10fc-436a-4865-9ff3-86f848a65707.gif)
 
 To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) for Windows and [`Plash`](https://github.com/sindresorhus/Plash) for MacOS
