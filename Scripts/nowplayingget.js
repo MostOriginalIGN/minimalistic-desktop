@@ -102,17 +102,23 @@ function updateType(newText, element) {
   clear(newText, $(element))
 }
 
+// The updateType function updates the progress bar
 function progressBar(current, duration){
+  // Split the time strings at the colon to get an array of the form [minutes, seconds]
   currentTime = current.split(':')
   dur = duration.split(':')
 
   console.log(currentTime, dur)
+  // Convert the minutes and seconds to milliseconds and add them together
   const currentTimeMs = (parseInt(currentTime[0]) * 60 + parseInt(currentTime[1])) * 1000;
   const durMs = (parseInt(dur[0]) * 60 + parseInt(dur[1])) * 1000;
 
+  // Calculate the progress as a percentage
   const prog = (currentTimeMs/durMs) * 100
+  // Update the width of the progress bar element
   $('#progress-bar').css('width', `${prog}%`)
 }
+
 // The getData function fetches data from a server and updates the page with the new data
 function getData() {
   fetch('http://127.0.0.1:8975')
