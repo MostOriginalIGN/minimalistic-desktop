@@ -1,21 +1,24 @@
 
 # minimalistic desktop
 cool minimalistic web desktop thing
- 
+
+![GitHub](https://img.shields.io/github/license/Astrogamer54/minimalistic-desktop)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop)
+![GitHub issues](https://img.shields.io/github/issues-raw/Astrogamer54/minimalistic-desktop)
 ![minimalisticdesktop](https://user-images.githubusercontent.com/78519393/210159265-4d1c10fc-436a-4865-9ff3-86f848a65707.gif)
 
 To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) for Windows and [`Plash`](https://github.com/sindresorhus/Plash) for MacOS
 
 ## Download
-[Download](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.0.zip)
+[![Download icon](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Download&query=$.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.1.zip)
 
-For Lively Wallpaper import manually. Support coming soon!
+For Windows With Lively Wallpaper, open Powershell, paste this line of code and run
+
+```iwr -useb https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.ps1 | iex```
 
 For Mac paste this line of code into Terminal and run
-`curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.sh | sh`
 
-Manual Install
-For Plash unzip and select `index.html` as file.
+```curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.sh | sh```
 
 # IMPORTANT!!!
 **API KEY NEEDED FOR WEATHER!**
@@ -23,14 +26,22 @@ For Plash unzip and select `index.html` as file.
 [`OpenWeatherMap`](https://openweathermap.org/price)
 Basic API is Free with 60 calls/minute  and 1,000,000 calls/month
 
-EDIT CONFIG IN `index.json`
+EDIT CONFIG IN `index.js`
 
 **FOR SPOTIFY AND WEBNOWPLAYING SUPPORT NOW-PLAYING-SERVER IS NEEDED**
 [`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playing-server)
 
 ## Config:
 
-Original Config:
+Lively Wallpaper:
+**Use Config in Lively Wallpaper Customization**
+
+![image](https://user-images.githubusercontent.com/78519393/210194436-b2e00e25-5a58-4292-ab87-0148670b8b41.png)
+
+
+Other:
+
+Original Config (`index.js`):
 ```
 // CONFIG
 const api = 'PUT OPENWEATHERMAP API KEY HERE'
@@ -64,7 +75,7 @@ past commits
 |4efdfb9|Astrogamer54|12/31/2022|fix variable names and comment code                    |
 |617f2a6|Astrogamer54|12/31/2022|Typewriter Fix                                         |
 |88bb015|Astrogamer54|12/31/2022|geolocation                                            |
-|2439ef4|Astrogamer54|12/31/2022|geolocation (also removes rain)                                            |
+|2439ef4|Astrogamer54|12/31/2022|geolocation (also removes rain)                        |
 |2d38f69|Astrogamer54|12/30/2022|kinda fix but broke effect                             |
 |6587b08|Astrogamer54|12/27/2022|FINALLY FIXED TYPEWRITER EFFECT OML                    |
 |6ea84c5|Astrogamer54|12/24/2022|Typewriter Effect                                      |
