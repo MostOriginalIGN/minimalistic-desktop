@@ -13,10 +13,12 @@ To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) fo
 [![Download icon](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Download&query=$.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.1.zip)
 
 For Windows With Lively Wallpaper, open Powershell, paste this line of code and run
-`iwr -useb https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.ps1 | iex`
+
+```iwr -useb https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.ps1 | iex```
 
 For Mac paste this line of code into Terminal and run
-`curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.sh | sh`
+
+```curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.sh | sh```
 
 # IMPORTANT!!!
 **API KEY NEEDED FOR WEATHER!**
