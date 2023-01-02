@@ -35,6 +35,8 @@ EDIT CONFIG IN `index.json`
 
 Lively Wallpaper:
 **Use Config in Lively Wallpaper Customization**
+![image](https://user-images.githubusercontent.com/78519393/210194436-b2e00e25-5a58-4292-ab87-0148670b8b41.png)
+
 
 Other:
 
