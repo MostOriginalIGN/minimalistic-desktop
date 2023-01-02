@@ -52,25 +52,21 @@ function write(newText, element) {
 
 // The clear function removes characters from an element's text with a fading effect
 function clear(newText, element) {
-  console.log('1', element); // Debugging line
   isClearingFinished[element.attr('id')] = false; // Set the flag indicating that the clear function is currently running
 
   if (interval[element.attr('id')]) { // Clear the interval if it already exists
     clearInterval(interval[element.attr('id')]);
 
   }
-  console.log('2', element); // Debugging line
   try {
     // Set up a counter to keep track of the current character
     let counter = element.text().length;
 
-    console.log('3', element); // Debugging line
     // Set up an interval to remove one character from the element's text every 50ms
     interval[element.attr('id')] = setInterval(() => {
       // If we've reached the end of the new text, clear the interval
       console.log(counter, element)
       if (counter === 0) {
-        console.log('4', element); // Debugging line
         console.log('deleted');
         clearInterval(interval[element.attr('id')]);
         // If the write function is not currently running, call it to write the new text
@@ -86,7 +82,6 @@ function clear(newText, element) {
       // Decrement the counter
       counter--;
     }, 50);
-    console.log('5', element); // Debugging line
   }
   // If an error occurs, set the element's text to the new text without using the fading effect
   catch {
@@ -107,6 +102,17 @@ function updateType(newText, element) {
   clear(newText, $(element))
 }
 
+function progressBar(current, duration){
+  currentTime = current.split(':')
+  dur = duration.split(':')
+
+  console.log(currentTime, dur)
+  const currentTimeMs = (parseInt(currentTime[0]) * 60 + parseInt(currentTime[1])) * 1000;
+  const durMs = (parseInt(dur[0]) * 60 + parseInt(dur[1])) * 1000;
+
+  const prog = (currentTimeMs/durMs) * 100
+  $('#progress-bar').css('width', `${prog}%`)
+}
 // The getData function fetches data from a server and updates the page with the new data
 function getData() {
   fetch('http://127.0.0.1:8975')
@@ -120,8 +126,10 @@ function getData() {
     .then(data => {
       if (data.STATE == '1') {
         $('#npdiv').css('opacity', 1);
+        $('#progress-bar').css('bottom', 0);
       } else {
         $('#npdiv').css('opacity', 0);
+        $('#progress-bar').css('bottom', '-0.2rem');
       }
       var src = $('#npImg').css('backgroundImage');
       if (src != `url("${data.COVER}")`) {
@@ -136,6 +144,7 @@ function getData() {
       if (pendingTexts['npArtist'] != data.ARTIST) {
         updateType(data.ARTIST, 'npArtist');
       }
+      progressBar(data.POSITION, data.DURATION)
     })
     .catch(error => {
       console.log("now-playing-server not detected");

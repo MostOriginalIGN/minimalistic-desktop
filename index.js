@@ -262,7 +262,7 @@ function compareVersions(latestVersion, currentVersion) {
 		console.log(`Comparing with currentContainsBeta`);
 		return compareVersions(latestVersion, currentVersion.replace("-beta", ".")) === true;
 	}
-	
+
 	// If both versions contain "beta", compare the version numbers as integers, ignoring the "beta" part
 	console.log(`Comparing with bothContainBeta`);
 	const latestParts = latestVersion.replace("-beta", ".").split(".");
@@ -285,27 +285,48 @@ function compareVersions(latestVersion, currentVersion) {
 }
 
 function getLatest() {
-	if (version.includes('beta')){
+	if (version.includes('beta')) {
 		versionv.innerHTML = `Dev ${version}`;
+		fetch('https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases')
+			.then(res => {
+				if (res.ok) {
+					return res.json();
+				} else {
+					throw new Error('Error fetching version');
+				}
+			})
+			.then(data => {
+				var lversion = data[0].tag_name.substring(1);
+				console.log(compareVersions(lversion, version));
+				if (compareVersions(lversion, version)) {
+					versionv.innerHTML = `Outdated <span style="color: #00ff00">${lversion}</span> > <span style="color: #ff0000">${version}</span>`;
+				}
+				else {
+					console.log("Up To Date")
+				}
+			})
 	}
-	fetch('https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest')
-		.then(res => {
-			if (res.ok) {
-				return res.json();
-			} else {
-				throw new Error('Error fetching version');
-			}
-		})
-		.then(data => {
-			var lversion = data.tag_name.substring(1);
-			console.log(compareVersions(lversion, version));
-			if (compareVersions(lversion, version)) {
-				versionv.innerHTML = `Outdated <span style="color: #00ff00">${lversion}</span> > <span style="color: #ff0000">${version}</span>`;
-			}
-			else {
-				console.log("Up To Date")
-			}
-		})
+	else {
+		fetch('https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest')
+			.then(res => {
+				if (res.ok) {
+					return res.json();
+				} else {
+					throw new Error('Error fetching version');
+				}
+			})
+			.then(data => {
+				var lversion = data.tag_name.substring(1);
+				console.log(compareVersions(lversion, version));
+				if (compareVersions(lversion, version)) {
+					versionv.innerHTML = `Outdated <span style="color: #00ff00">${lversion}</span> > <span style="color: #ff0000">${version}</span>`;
+				}
+				else {
+					console.log("Up To Date")
+				}
+			})
+	}
+
 
 }
 function init() {

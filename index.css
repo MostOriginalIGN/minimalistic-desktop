@@ -165,3 +165,10 @@ version{
   font-size: 1.5rem;
   right: 0;
 }
+#progress-bar{
+  position: absolute;
+  height: 0.2rem;
+  background-color: white;
+  left: 0;
+  transition: width 1s, bottom 1s ease-in-out;
+}
