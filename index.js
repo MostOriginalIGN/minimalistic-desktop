@@ -2,6 +2,7 @@
 
 // IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
 
+let version = "1.1.2-beta1";
 // CONFIG
 let api = 'PUT OPENWEATHERMAP API KEY HERE'
 let numImg = 1 // How Many Images You Put
@@ -22,6 +23,10 @@ const nowPlayingWrapper = document.createElement('div');
 nowPlayingWrapper.id = 'npdiv'
 const nowPlayingTxtWrapper = document.createElement('div');
 nowPlayingTxtWrapper.id = 'nptxtdiv'
+
+const versionv = document.createElement('version');
+document.body.appendChild(versionv);
+
 
 const npImg = document.createElement('div');
 const npName = document.createElement('npName');
@@ -217,7 +222,44 @@ function date(time) {
 
 	return `${fd}, ${months[mo]} ${d}`;
 }
+function compareVersions(latestVersion, currentVersion) {
+	// Split the version strings on the "." character
+	const latestParts = latestVersion.split(".");
+	const currentParts = currentVersion.split(".");
 
+	console.log(latestParts)
+	console.log(currentParts)
+	// Compare the substrings as integers
+	for (let i = 0; i < latestParts.length; i++) {
+		if (parseInt(latestParts[i]) > parseInt(currentParts[i])) {
+			return (true)
+		} else if (parseInt(latestParts[i]) < parseInt(currentParts[i])) {
+			return (false)
+		}
+	}
+
+	return (false)
+}
+function getLatest() {
+	fetch('https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest')
+		.then(res => {
+			if (res.ok) {
+				return res.json();
+			} else {
+				throw new Error('Error fetching version');
+			}
+		})
+		.then(data => {
+			var cversion = data.tag_name.substring(1);
+			if(compareVersions(cversion, version)){
+				versionv.innerHTML = `Outdated <span style="color: #00ff00">${cversion}</span> > <span style="color: #ff0000">${version}</span>`;
+			}
+			else{
+				console.log("Up To Date")
+			}	
+		})
+
+}
 function init() {
 	// Lively Wallpaper?
 	if (window.showAMPM != undefined) {
@@ -232,6 +274,7 @@ function init() {
 	} else {
 		console.log("No Lively Wallpaper")
 	}
+	getLatest();
 	setInterval(nextBackground, 1000 * 60);
 	nextBackground();
 	setInterval(update, 1000);
