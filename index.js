@@ -248,8 +248,8 @@ function compareVersions(latestVersion, currentVersion) {
 				return (false);
 			}
 		}
-		
-		if(currentParts[latestParts.length+1] == undefined){
+
+		if(latestParts[currentParts.length] != undefined){
 			console.log(`${currentVersion} is equal to ${latestVersion}`);
 			return (false);
 		}
