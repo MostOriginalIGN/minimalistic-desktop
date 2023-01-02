@@ -26,7 +26,7 @@ For Mac paste this line of code into Terminal and run
 [`OpenWeatherMap`](https://openweathermap.org/price)
 Basic API is Free with 60 calls/minute  and 1,000,000 calls/month
 
-EDIT CONFIG IN `index.json`
+EDIT CONFIG IN `index.js`
 
 **FOR SPOTIFY AND WEBNOWPLAYING SUPPORT NOW-PLAYING-SERVER IS NEEDED**
 [`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playing-server)
@@ -41,7 +41,7 @@ Lively Wallpaper:
 
 Other:
 
-Original Config (index.js):
+Original Config (`index.js`):
 ```
 // CONFIG
 const api = 'PUT OPENWEATHERMAP API KEY HERE'
