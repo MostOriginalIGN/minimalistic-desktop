@@ -41,7 +41,7 @@ Lively Wallpaper:
 
 Other:
 
-Original Config:
+Original Config (index.js):
 ```
 // CONFIG
 const api = 'PUT OPENWEATHERMAP API KEY HERE'
