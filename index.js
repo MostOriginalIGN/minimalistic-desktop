@@ -249,7 +249,7 @@ function compareVersions(latestVersion, currentVersion) {
 			}
 		}
 		
-		if(currentParts[latestParts.length+1] = undefined){
+		if(currentParts[latestParts.length+1] == undefined){
 			console.log(`${currentVersion} is equal to ${latestVersion}`);
 			return (false);
 		}
