@@ -223,24 +223,71 @@ function date(time) {
 	return `${fd}, ${months[mo]} ${d}`;
 }
 function compareVersions(latestVersion, currentVersion) {
-	// Split the version strings on the "." character
-	const latestParts = latestVersion.split(".");
-	const currentParts = currentVersion.split(".");
+	console.log(`Comparing ${latestVersion} to ${currentVersion}`);
+	// Check if either version string contains "beta"
+	const latestContainsBeta = latestVersion.includes("beta");
+	const currentContainsBeta = currentVersion.includes("beta");
 
-	console.log(latestParts)
-	console.log(currentParts)
+	console.log(`latestContainsBeta: ${latestContainsBeta}`);
+	console.log(`currentContainsBeta: ${currentContainsBeta}`);
+
+	// If neither version contains "beta", compare as integers
+	if (!latestContainsBeta && !currentContainsBeta) {
+		console.log(`Comparing as integers`);
+		// Split the version strings on the "." character
+		const latestParts = latestVersion.split(".");
+		const currentParts = currentVersion.split(".");
+
+		// Compare the substrings as integers
+		for (let i = 0; i < latestParts.length; i++) {
+			if (parseInt(latestParts[i]) > parseInt(currentParts[i])) {
+				console.log(`${latestVersion} is greater`);
+				return (true);
+			} else if (parseInt(latestParts[i]) < parseInt(currentParts[i])) {
+				console.log(`${currentVersion} is greater`);
+				return (false);
+			}
+		}
+
+		console.log(`${currentVersion} is equal`);
+		return (false);
+	}
+
+	// If only one version contains "beta", return true if the version without "beta" is greater
+	if (latestContainsBeta && !currentContainsBeta) {
+		console.log(`Comparing with latestContainsBeta`);
+		return compareVersions(latestVersion.replace("-beta", "."), currentVersion) === true;
+	}
+	if (!latestContainsBeta && currentContainsBeta) {
+		console.log(`Comparing with currentContainsBeta`);
+		return compareVersions(latestVersion, currentVersion.replace("-beta", ".")) === true;
+	}
+	
+	// If both versions contain "beta", compare the version numbers as integers, ignoring the "beta" part
+	console.log(`Comparing with bothContainBeta`);
+	const latestParts = latestVersion.replace("-beta", ".").split(".");
+	const currentParts = currentVersion.replace("-beta", ".").split(".");
+
+	console.log(`Comparing ${latestParts} to ${currentParts}`);
 	// Compare the substrings as integers
 	for (let i = 0; i < latestParts.length; i++) {
 		if (parseInt(latestParts[i]) > parseInt(currentParts[i])) {
-			return (true)
+			console.log(`${latestVersion} is greater`);
+			return (true);
 		} else if (parseInt(latestParts[i]) < parseInt(currentParts[i])) {
-			return (false)
+			console.log(`${currentVersion} is greater`);
+			return (false);
 		}
 	}
 
-	return (false)
+	console.log(`${currentVersion} is equal`);
+	return (false);
 }
+
 function getLatest() {
+	if (version.includes('beta')){
+		versionv.innerHTML = `Dev ${version}`;
+	}
 	fetch('https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest')
 		.then(res => {
 			if (res.ok) {
@@ -250,13 +297,14 @@ function getLatest() {
 			}
 		})
 		.then(data => {
-			var cversion = data.tag_name.substring(1);
-			if(compareVersions(cversion, version)){
-				versionv.innerHTML = `Outdated <span style="color: #00ff00">${cversion}</span> > <span style="color: #ff0000">${version}</span>`;
+			var lversion = data.tag_name.substring(1);
+			console.log(compareVersions(lversion, version));
+			if (compareVersions(lversion, version)) {
+				versionv.innerHTML = `Outdated <span style="color: #00ff00">${lversion}</span> > <span style="color: #ff0000">${version}</span>`;
 			}
-			else{
+			else {
 				console.log("Up To Date")
-			}	
+			}
 		})
 
 }
