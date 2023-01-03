@@ -14,7 +14,7 @@ To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) fo
 
 For Windows With Lively Wallpaper, open Powershell, paste this line of code and run
 
-```iex (iwr https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.ps1).Content```
+```iwr -useb https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.ps1 | iex```
 
 For Mac paste this line of code into Terminal and run
 
