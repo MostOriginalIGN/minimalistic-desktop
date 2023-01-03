@@ -18,7 +18,7 @@ $livelyExePath = "C:\Program Files (x86)\Lively Wallpaper\Lively.exe"
 
 # If the $v parameter is provided, set the version to that value
 if ($v) {
-    $version = $v
+  $version = $v
 }
 
 # Prints a message to the console without a newline at the end
@@ -51,26 +51,26 @@ function Write-Warn ([string] $Text) {
 
 # Check if Lively Wallpaper is installed
 function Check-Lively {
-    Write-Emphasized "Checking Lively Install"
-    try {
-        # Check if the Lively Wallpaper executable exists in the default installation directory
-        if (-not (Test-Path -Path $livelyExePath -PathType Leaf)) {
-            # If not, check for an installation in the local AppData directory
-            $livelyExePath = "$HOME\AppData\Local\Programs\Lively Wallpaper\Lively.exe"
-            if (-not (Test-Path -Path $livelyExePath -PathType Leaf)) {
-                # If not found in either location, print an error and exit the script
-                Write-Err
-                Write-Part "Lively Wallpaper is not installed" Write-Err
-                break
-            }
-        }
-        Write-Emphasized "Lively Wallpaper is Installed"
-        Write-Done
+  Write-Emphasized "Checking Lively Install"
+  try {
+    # Check if the Lively Wallpaper executable exists in the default installation directory
+    if (-not (Test-Path -Path $livelyExePath -PathType Leaf)) {
+      # If not, check for an installation in the local AppData directory
+      $livelyExePath = "$HOME\AppData\Local\Programs\Lively Wallpaper\Lively.exe"
+      if (-not (Test-Path -Path $livelyExePath -PathType Leaf)) {
+        # If not found in either location, print an error and exit the script
+        Write-Err
+        Write-Part "Lively Wallpaper is not installed" Write-Err
+        break
+      }
     }
-    catch {
-        # If an error occurs, print the error message
-        Write-Error "An error occurred while checking the Lively Wallpaper installation: $($_.Exception.Message)"
-    }
+    Write-Emphasized "Lively Wallpaper is Installed"
+    Write-Done
+  }
+  catch {
+    # If an error occurs, print the error message
+    Write-Error "An error occurred while checking the Lively Wallpaper installation: $($_.Exception.Message)"
+  }
 }
 
 # Check if PowerShell version is greater than required version
@@ -104,8 +104,8 @@ if ($PSVersionTable.PSVersion.Major -gt $PSMinVersion) {
     Write-Done
   }
   # If directory already exists, write warning to console
-  catch [System.IO.IOException]{
-      Write-Warn "Already Exists"
+  catch [System.IO.IOException] {
+    Write-Warn "Already Exists"
   } 
   # Set file path for zip file containing wallpaper package
   $zip_file = "${wpdir}\v${version}.zip"
@@ -135,59 +135,66 @@ if ($PSVersionTable.PSVersion.Major -gt $PSMinVersion) {
 
   # Set URL for downloading Lively command utility
   $download_uri2 = "https://github.com/rocksdanister/lively/releases/download/v2.0.4.0/lively_command_utility.zip"
-    # Write message to console
-    Write-Part "INSTALLING LIVELYCU     ";
-    # Download Lively command utility
-    Invoke-WebRequest -Uri $download_uri2 -UseBasicParsing -OutFile $zip_file2
-    Write-Done
+  # Write message to console
+  Write-Part "INSTALLING LIVELYCU     ";
+  # Download Lively command utility
+  Invoke-WebRequest -Uri $download_uri2 -UseBasicParsing -OutFile $zip_file2
+  Write-Done
   
-    # Write message to console
-    Write-Part "EXTRACTING     "; Write-Emphasized $zip_file2
-    Write-Part " into "; Write-Emphasized ${wpdir};
-    # Extract Lively command utility
-    Expand-Archive -Path $zip_file2 -DestinationPath $wpdir -Force
-    Write-Done
+  # Write message to console
+  Write-Part "EXTRACTING     "; Write-Emphasized $zip_file2
+  Write-Part " into "; Write-Emphasized ${wpdir};
+  # Extract Lively command utility
+  Expand-Archive -Path $zip_file2 -DestinationPath $wpdir -Force
+  Write-Done
   
-    # Write message to console
-    Write-Part "REMOVING       "; Write-Emphasized $zip_file2
-    # Remove zip file containing Lively command utility
-    Remove-Item -Path $zip_file2
-    Write-Done
+  # Write message to console
+  Write-Part "REMOVING       "; Write-Emphasized $zip_file2
+  # Remove zip file containing Lively command utility
+  Remove-Item -Path $zip_file2
+  Write-Done
     
-    # Change working directory to wallpaper directory
-    Set-Location $wpdir
+  # Change working directory to wallpaper directory
+  Set-Location $wpdir
 
-    $instLoc = "$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop"
-    # Write message to console
-    Write-Part "CREATING FOLDER     "; Write-Emphasized ${$instLoc}
-    try {
-      # Create directory
-      New-Item -Path $instLoc -ItemType Directory
-      Write-Done
-    }
-    # If directory already exists, write warning to console
-    catch [System.IO.IOException]{
-        Write-Warn "Already Exists"
-    } 
-
-    # Write message to console
-    Write-Part "COPYING FILES       "; Write-Emphasized "'${wpdir}\minimalistic-desktop-${version}' > '$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop'"
-    # Copy wallpaper files to Lively Wallpaper directory
-    COPY-ITEM "${wpdir}\minimalistic-desktop-${version}\*" -Destination $instLoc -Recurse -Force
-    Write-Done  
-    
-    # Write message to console
-    Write-Part "SETTING WALLPAPER       "; Write-Emphasized "$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop"
-    # Set wallpaper using Lively command utility
-    ./Livelycu.exe setwp --file "$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop"
+  $instLoc = "$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop"
+  # Write message to console
+  Write-Part "CREATING FOLDER     "; Write-Emphasized ${$instLoc}
+  try {
+    # Create directory
+    New-Item -Path $instLoc -ItemType Directory
     Write-Done
-  
-    # Write message to console
-    Write-Part "minimalist-desktop was installed successfully."; Write-Done
-  } else {
-    # Write message to console
-    Write-Part "`nYour Powershell version is lesser than "; Write-Emphasized "$PSMinVersion";
-    Write-Part "! Please update your PowerShell to at least version "; Write-Emphasized "$PSMinVersion"
-    Write-Part " to run this script.";
   }
+  # If directory already exists, write warning to console
+  catch [System.IO.IOException] {
+    Write-Warn "Already Exists"
+  } 
+
+  # Write message to console
+  Write-Part "COPYING FILES       "; Write-Emphasized "'${wpdir}\minimalistic-desktop-${version}' > '$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop'"
+  # Copy wallpaper files to Lively Wallpaper directory
+  COPY-ITEM "${wpdir}\minimalistic-desktop-${version}\*" -Destination $instLoc -Recurse -Force
+  Write-Done  
+    
+  # Write message to console
+  Write-Part "SETTING WALLPAPER       "; Write-Emphasized "$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop"
+  # Set wallpaper using Lively command utility
+  ./Livelycu.exe setwp --file "$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop"
+  Write-Done
+  
+  # Write message to console
+  Write-Part "minimalist-desktop was installed successfully."; Write-Done
+
+  $confirmation = Read-Host "Do you want to install now-playing-server? (y/n)"
+  if ($confirmation -eq 'y') {
+    Start-Process powershell {Invoke-WebRequest -useb https://raw.githubusercontent.com/Astrogamer54/now-playing-server/master/install.ps1 | Invoke-Expression}
+  }
+
+}
+else {
+  # Write message to console
+  Write-Part "`nYour Powershell version is lesser than "; Write-Emphasized "$PSMinVersion";
+  Write-Part "! Please update your PowerShell to at least version "; Write-Emphasized "$PSMinVersion"
+  Write-Part " to run this script.";
+}
   
