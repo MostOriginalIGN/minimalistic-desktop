@@ -61,7 +61,7 @@ function Check-Lively {
                 # If not found in either location, print an error and exit the script
                 Write-Err
                 Write-Part "Lively Wallpaper is not installed" Write-Err
-                Exit
+                break
             }
         }
         Write-Emphasized "Lively Wallpaper is Installed"
