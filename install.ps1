@@ -156,11 +156,24 @@ if ($PSVersionTable.PSVersion.Major -gt $PSMinVersion) {
     
     # Change working directory to wallpaper directory
     Set-Location $wpdir
-  
+
+    $instLoc = "$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop"
+    # Write message to console
+    Write-Part "CREATING FOLDER     "; Write-Emphasized ${$instLoc}
+    try {
+      # Create directory
+      New-Item -Path $instLoc -ItemType Directory
+      Write-Done
+    }
+    # If directory already exists, write warning to console
+    catch [System.IO.IOException]{
+        Write-Warn "Already Exists"
+    } 
+
     # Write message to console
     Write-Part "COPYING FILES       "; Write-Emphasized "'${wpdir}\minimalistic-desktop-${version}' > '$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop'"
     # Copy wallpaper files to Lively Wallpaper directory
-    COPY-ITEM "${wpdir}\minimalistic-desktop-${version}\*" -Destination "$($env:LOCALAPPDATA)\Lively Wallpaper\Library\wallpapers\minimalistic-desktop" -Recurse -Force
+    COPY-ITEM "${wpdir}\minimalistic-desktop-${version}\*" -Destination $instLoc -Recurse -Force
     Write-Done  
     
     # Write message to console
