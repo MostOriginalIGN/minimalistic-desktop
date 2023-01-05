@@ -72,6 +72,10 @@ In `index.js` at the top of the file. set `numImg` to how many images you put an
 
 LRC Parser: https://github.com/anhthii/lrc-parser
 
+## Beta preview
+![minimalistic saver beta](https://user-images.githubusercontent.com/78519393/210684522-f8c8d1fe-a0e0-416f-a84d-987241c2f572.gif)
+
+
 # Other Stuff
 
 
