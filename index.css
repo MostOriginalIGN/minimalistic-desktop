@@ -26,6 +26,7 @@ body {
   transition: background-image 3s ease-in-out;
   position: absolute;
   z-index: -1;
+  
 }
 bot {
   padding: 0rem 0rem 2rem 0rem;
@@ -183,6 +184,7 @@ version{
   width: 100%;
   height: 10.5rem;
   overflow: hidden;
+  transition: opacity 1s ease;
 }
 .lyric-line{
   position: absolute;
@@ -193,4 +195,11 @@ version{
   width: 100%;
   text-align: center;
   margin: 0;
+}
+
+.dark{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: -1;
 }

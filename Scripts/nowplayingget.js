@@ -79,7 +79,7 @@ function convertTime(string) {
 
 // Lyrics
 function formatLyrics(lrc) {
-  const filteredScripts = lrc.scripts.filter(script => !script.text.includes('作曲') && !script.text.includes('作词'));
+  const filteredScripts = lrc.scripts.filter(script => !script.text.includes('作曲') && !script.text.includes('作词')  && !script.text.includes('制作人') && !script.text.includes('编曲'));
   return { ...lrc, scripts: filteredScripts };
 }
 function updateLyrics(lines) {
@@ -124,7 +124,14 @@ function getCurrentLine(pos, lrc) {
     currentTime = pos.split(':')
 
     const currentTimeSec = (parseInt(currentTime[0]) * 60 + parseInt(currentTime[1]) + syncOffset);
-
+    if (currentTimeSec < lrc.scripts[0].start){
+      console.log('hi')
+      return {
+        "line": " ",
+        "nextLine": lrc.scripts[0].text,
+        "after": lrc.scripts[1].text
+      }
+    }
     for (let i = 0; i < lrc.scripts.length; i++) {
       if (currentTimeSec >= lrc.scripts[i].start && currentTimeSec < lrc.scripts[i].end) {
         return {
@@ -320,11 +327,11 @@ function getData() {
     .then(data => {
       if (data.STATE == '1') {
         $('#npdiv').css('opacity', 1);
-        $('.lyric-line').css('opacity', 1);
+        $('#lyrics-container').css('opacity', 1);
         $('#progress-bar').css('bottom', 0);
       } else {
         $('#npdiv').css('opacity', 0);
-        $('.lyric-line').css('opacity', 0);
+        $('#lyrics-container').css('opacity', 0);
         $('#progress-bar').css('bottom', '-0.2rem');
       }
       var src = $('#npImg').css('backgroundImage');
@@ -338,6 +345,7 @@ function getData() {
         updateType(data.TITLE, 'npName');
         if (showLyrics) {
           $('.lyric-line').text('');
+          lrc = ''
           findLyrics(data.TITLE, data.ARTIST, data.ALBUM)
             .then(data => {
               if (data != 'No Lyrics') {
