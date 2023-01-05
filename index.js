@@ -70,6 +70,8 @@ document.getElementsByClassName('lyric-line')[2].style.filter = "blur(3px)"
 document.getElementsByClassName('lyric-line')[0].style.top = "2rem"
 document.getElementsByClassName('lyric-line')[1].style.top = "6rem"
 document.getElementsByClassName('lyric-line')[2].style.top = "10rem"
+document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
+document.getElementsByClassName('lyric-line')[2].style.transform = "scale(0.8)"
 
 // Set the current background to a random number
 function nextBackground() {

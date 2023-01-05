@@ -88,8 +88,10 @@ function updateLyrics(lines) {
   }
   $('.lyric-line').css('transition', 'all 0.5s ease')
   document.getElementsByClassName('lyric-line')[0].style.top = "-4rem"
+  document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
   document.getElementsByClassName('lyric-line')[1].style.top = "2rem"
   document.getElementsByClassName('lyric-line')[1].style.filter = "blur(0px)"
+  document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
   document.getElementsByClassName('lyric-line')[2].style.top = "6rem"
   setTimeout(() => {
     $('.lyric-line').css('transition', 'all 0s')
@@ -109,7 +111,9 @@ function updateLyrics(lines) {
       console.log('no lyric')
     }
     document.getElementsByClassName('lyric-line')[0].style.top = "2rem"
+    document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
     document.getElementsByClassName('lyric-line')[1].style.top = "6rem"
+    document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
     document.getElementsByClassName('lyric-line')[2].style.top = "10rem"
     document.getElementsByClassName('lyric-line')[1].style.filter = "blur(3px)"
   }, 500)
