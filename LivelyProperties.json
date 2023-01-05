@@ -38,6 +38,27 @@
     "showAMPM": {
         "type": "checkbox",
         "value": true,
-        "text": "show AM/PM"
-    } 
+        "text": "Show AM/PM"
+    },
+    "showLyrics": {
+        "type": "checkbox",
+        "value": true,
+        "text": "Show Lyrics"
+    },
+    "syncOffset": {
+        "text": "Lyrics Sync Offset",
+        "type": "slider",
+        "max": 10,
+        "min": -10,
+        "step": 0.5,
+        "value": 1 
+    },
+    "backgroundBlur": {
+        "text": "Background Blur",
+        "type": "slider",
+        "max": 50,
+        "min": 0,
+        "step": 1,
+        "value": 5 
+    }
 }

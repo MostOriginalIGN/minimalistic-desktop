@@ -64,6 +64,11 @@ Ex:
 3.jpg
 ```
 In `index.js` at the top of the file. set `numImg` to how many images you put and `wallpaperType` to 0
+
+# Credits
+
+LRC Parser: https://github.com/anhthii/lrc-parser
+
 # Other Stuff
 
 

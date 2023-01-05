@@ -1,11 +1,203 @@
-// Forgot to add Geolocation commit also fixed typewriter effect
-
 var pendingTexts = {} // An object to store the pending texts for each element
 
 let interval2 = {}; // An object to store the interval for the write function
 let interval = {}; // An object to store the interval for the clear function
 let isClearingFinished = {}; // An object to store a flag indicating whether the clear function has finished running
 let isWriting = {}; // An object to store a flag indicating whether the write function is currently running
+
+var lrc;
+
+// https://github.com/anhthii/lrc-parser
+function extractInfo(data) {
+  const info = data.trim().slice(1, -1) // remove brackets: length: 03:06
+  return info.split(': ')
+}
+
+function lrcParser(data) {
+  if (typeof data !== 'string') {
+    throw new TypeError('expect first argument to be a string')
+  }
+  // split a long stirng into lines by system's end-of-line marker line \r\n on Windows
+  // or \n on POSIX
+  let lines = data.split('\n')
+  const timeStart = /\[(\d*\:\d*\.?\d*)\]/ // i.g [00:10.55]
+  const scriptText = /(.+)/ // Havana ooh na-na (ayy) 
+  const timeEnd = timeStart
+  const startAndText = new RegExp(timeStart.source + scriptText.source)
+
+
+  const infos = []
+  const scripts = []
+  const result = {}
+
+  for (let i = 0; startAndText.test(lines[i]) === false; i++) {
+    infos.push(lines[i])
+  }
+
+  infos.reduce((result, info) => {
+    const [key, value] = extractInfo(info)
+    result[key] = value
+    return result
+  }, result)
+
+  lines.splice(0, infos.length) // remove all info lines
+  const qualified = new RegExp(startAndText.source + '|' + timeEnd.source)
+  lines = lines.filter(line => qualified.test(line))
+
+  for (let i = 0, l = lines.length; i < l; i++) {
+    const matches = startAndText.exec(lines[i])
+    const timeEndMatches = timeEnd.exec(lines[i + 1])
+    if (matches && timeEndMatches) {
+      const [, start, text] = matches
+      const [, end] = timeEndMatches
+      scripts.push({
+        start: convertTime(start),
+        text,
+        end: convertTime(end),
+      })
+    }
+  }
+
+  result.scripts = scripts
+  return result
+}
+
+// convert time string to seconds
+// i.g: [01:09.10] -> 69.10
+function convertTime(string) {
+  string = string.split(':');
+  const minutes = parseInt(string[0], 10)
+  const seconds = parseFloat(string[1])
+  if (minutes > 0) {
+    const sc = minutes * 60 + seconds
+    return parseFloat(sc.toFixed(2))
+  }
+  return seconds
+}
+
+// End Of https://github.com/anhthii/lrc-parser
+
+// Lyrics
+function formatLyrics(lrc) {
+  const filteredScripts = lrc.scripts.filter(script => !script.text.includes('作曲') && !script.text.includes('作词'));
+  return { ...lrc, scripts: filteredScripts };
+}
+function updateLyrics(lines) {
+  if (lines.line == document.getElementsByClassName('lyric-line')[0].textContent) {
+    return;
+  }
+  $('.lyric-line').css('transition', 'all 0.5s ease')
+  document.getElementsByClassName('lyric-line')[0].style.top = "-4rem"
+  document.getElementsByClassName('lyric-line')[1].style.top = "2rem"
+  document.getElementsByClassName('lyric-line')[1].style.filter = "blur(0px)"
+  document.getElementsByClassName('lyric-line')[2].style.top = "6rem"
+  setTimeout(() => {
+    $('.lyric-line').css('transition', 'all 0s')
+    try {
+      if (lines.line == undefined) {
+        document.getElementsByClassName('lyric-line')[0].innerText = ""
+        return;
+      }
+      if (lines.nextLine == undefined) {
+        document.getElementsByClassName('lyric-line')[1].innerText = ""
+        return;
+      }
+      document.getElementsByClassName('lyric-line')[0].innerText = lines.line
+      document.getElementsByClassName('lyric-line')[1].innerText = lines.nextLine
+      document.getElementsByClassName('lyric-line')[2].innerText = lines.after
+    } catch {
+      console.log('no lyric')
+    }
+    document.getElementsByClassName('lyric-line')[0].style.top = "2rem"
+    document.getElementsByClassName('lyric-line')[1].style.top = "6rem"
+    document.getElementsByClassName('lyric-line')[2].style.top = "10rem"
+    document.getElementsByClassName('lyric-line')[1].style.filter = "blur(3px)"
+  }, 500)
+
+}
+function getCurrentLine(pos, lrc) {
+  try {
+    if (lrc == undefined) {
+      console.log('no lyrics')
+      return "";
+    }
+    currentTime = pos.split(':')
+
+    const currentTimeSec = (parseInt(currentTime[0]) * 60 + parseInt(currentTime[1]) + syncOffset);
+
+    for (let i = 0; i < lrc.scripts.length; i++) {
+      if (currentTimeSec >= lrc.scripts[i].start && currentTimeSec < lrc.scripts[i].end) {
+        return {
+          "line": lrc.scripts[i].text,
+          "nextLine": lrc.scripts[i + 1].text,
+          "after": lrc.scripts[i + 2].text
+        }
+      }
+    }
+    return "";
+  } catch {
+    return "";
+  }
+}
+
+
+async function findLyrics(name, artist, album) {
+  const bname = name.split('(')[0];
+
+  const song = encodeURIComponent(`${bname} ${artist}`)
+  console.log(song)
+  try {
+    const id = await fetch(`https://music.xianqiao.wang/neteaseapiv2/search?limit=10&type=1&keywords=${song}`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Error fetching data');
+        }
+      })
+      .then(data => {
+        let index;
+
+        console.log(`https://music.xianqiao.wang/neteaseapiv2/search?limit=10&type=1&keywords=${song}`)
+        if (data.result.songs == undefined) {
+          console.log("Song Not Found")
+          return "No Lyrics";
+        }
+        const songs = data.result.songs
+        for (let i = 0; i < songs.length; i++) {
+          if (songs[i].album.name.toUpperCase() == album.toUpperCase()) {
+            index = i;
+            break;
+          }
+        }
+        if (index == undefined) {
+          console.log("Song Not Found")
+          return "No Lyrics";
+        }
+        return data.result.songs[index].id;
+      })
+    const lyricData = await fetch(`https://music.xianqiao.wang/neteaseapiv2/lyric?id=${id}`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Error fetching data');
+        }
+      })
+      .then(data => {
+        return data.lrc.lyric;
+      })
+    console.log(`https://music.xianqiao.wang/neteaseapiv2/lyric?id=${id}`)
+    return lyricData;
+  }
+  catch (error) {
+    console.log(error)
+    return "No Lyrics";
+  }
+}
+
+
+// Now Playing
 
 // The write function adds characters to an element's text with a fading effect
 function write(newText, element) {
@@ -28,7 +220,6 @@ function write(newText, element) {
         isWriting[element.attr('id')] = false; // Set the flag indicating that the write function is not currently running
         // If the element's text is not the same as the pending text, call the clear function again
         if (element.text() != pendingTexts[element.attr('id')]) {
-          console.log(`${element.attr('id')} = ${element.text()} != ${(pendingTexts[element.attr('id')])}`)
           clear(pendingTexts[element.attr('id')], element);
           console.log(`Attempting to write: ${pendingTexts[element.attr('id')]}`)
         }
@@ -65,7 +256,6 @@ function clear(newText, element) {
     // Set up an interval to remove one character from the element's text every 50ms
     interval[element.attr('id')] = setInterval(() => {
       // If we've reached the end of the new text, clear the interval
-      console.log(counter, element)
       if (counter === 0) {
         console.log('deleted');
         clearInterval(interval[element.attr('id')]);
@@ -97,24 +287,22 @@ function clear(newText, element) {
 function updateType(newText, element) {
   // Store the new text in the pendingTexts object using the element ID as the key
   pendingTexts[element] = newText;
-  console.log(`${element} = ${pendingTexts[element.toUpperCase()]}`) // Debugging line
   // Call the clear function to clear the element's text with a fading effect
   clear(newText, $(element))
 }
 
 // The updateType function updates the progress bar
-function progressBar(current, duration){
+function progressBar(current, duration) {
   // Split the time strings at the colon to get an array of the form [minutes, seconds]
   currentTime = current.split(':')
   dur = duration.split(':')
 
-  console.log(currentTime, dur)
   // Convert the minutes and seconds to milliseconds and add them together
   const currentTimeMs = (parseInt(currentTime[0]) * 60 + parseInt(currentTime[1])) * 1000;
   const durMs = (parseInt(dur[0]) * 60 + parseInt(dur[1])) * 1000;
 
   // Calculate the progress as a percentage
-  const prog = (currentTimeMs/durMs) * 100
+  const prog = (currentTimeMs / durMs) * 100
   // Update the width of the progress bar element
   $('#progress-bar').css('width', `${prog}%`)
 }
@@ -132,9 +320,11 @@ function getData() {
     .then(data => {
       if (data.STATE == '1') {
         $('#npdiv').css('opacity', 1);
+        $('.lyric-line').css('opacity', 1);
         $('#progress-bar').css('bottom', 0);
       } else {
         $('#npdiv').css('opacity', 0);
+        $('.lyric-line').css('opacity', 0);
         $('#progress-bar').css('bottom', '-0.2rem');
       }
       var src = $('#npImg').css('backgroundImage');
@@ -146,17 +336,36 @@ function getData() {
       if (pendingTexts['npName'] != data.TITLE) {
         console.log('attempting to write')
         updateType(data.TITLE, 'npName');
+        if (showLyrics) {
+          $('.lyric-line').text('');
+          findLyrics(data.TITLE, data.ARTIST, data.ALBUM)
+            .then(data => {
+              if (data != 'No Lyrics') {
+                lrc = formatLyrics(lrcParser(data));
+              } else {
+                lrc = ''
+              }
+
+            })
+        }
       }
       if (pendingTexts['npArtist'] != data.ARTIST) {
         updateType(data.ARTIST, 'npArtist');
       }
-      progressBar(data.POSITION, data.DURATION)
+      progressBar(data.POSITION, data.DURATION);
+      if (showLyrics) {
+        updateLyrics(getCurrentLine(data.POSITION, lrc));
+      }
     })
-    .catch(error => {
-      console.log("now-playing-server not detected");
-    });
 
 }
 
-// Call the getData function every 1000ms (1 second)
-setInterval(getData, 1000)
+function init() {
+  const showLyrics = window.showLyrics;
+  const syncOffset = window.syncOffset;
+
+  // Call the getData function every 1000ms (1 second)
+  setInterval(getData, 1000)
+}
+
+setTimeout(init, 1000);

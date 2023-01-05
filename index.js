@@ -2,7 +2,8 @@
 
 // IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
 
-let version = "1.1.2";
+let version = "1.2.0-beta1";
+
 // CONFIG
 let api = 'PUT OPENWEATHERMAP API KEY HERE'
 let numImg = 1 // How Many Images You Put
@@ -11,6 +12,9 @@ let milTime = true;
 let celsius = false;
 let showSec = true;
 let showAMPM = false;
+let showLyrics = true;
+let syncOffset = 1;
+let backgroundBlur = 5;
 // END CONFIG
 
 const wrapper = document.createElement('div');
@@ -54,12 +58,18 @@ const weatherIco = document.createElement('img');
 weatherIco.id = 'wIco';
 wWrapper.appendChild(weatherIco);
 
-var header = $('body');
+var bk = $('.background');
 
 var stillRaining = false;
 
 var current = (Math.floor(Math.random() * numImg) + 1);
 console.log(current)
+
+document.getElementsByClassName('lyric-line')[1].style.filter = "blur(3px)"
+document.getElementsByClassName('lyric-line')[2].style.filter = "blur(3px)"
+document.getElementsByClassName('lyric-line')[0].style.top = "2rem"
+document.getElementsByClassName('lyric-line')[1].style.top = "6rem"
+document.getElementsByClassName('lyric-line')[2].style.top = "10rem"
 
 // Set the current background to a random number
 function nextBackground() {
@@ -67,12 +77,12 @@ function nextBackground() {
 		case 0:
 			console.log('local');
 			current = (Math.floor(Math.random() * numImg) + 1)
-			header.css('background', `url('./Resources/${current}.jpg') no-repeat center/cover`);
+			bk.css('background', `url('./Resources/${current}.jpg') no-repeat center/cover`);
 			return;
 		case 1:
 			console.log('online');
 			var a = (Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1) // random # so the image actually updates
-			header.css('background', `url('https://picsum.photos/seed/${a}/1920/1080') no-repeat center/cover`);
+			bk.css('background', `url('https://picsum.photos/seed/${a}/1920/1080') no-repeat center/cover`);
 			// Prevents White Flash
 			setTimeout(() => {
 				$('html').css('background', `url('https://picsum.photos/seed/${a}/1920/1080') no-repeat center/cover`);
@@ -346,10 +356,14 @@ function init() {
 		celsius = window.celsius;
 		showSec = window.showSec;
 		showAMPM = window.showAMPM;
+		backgroundBlur = window.backgroundBlur;
 		console.log("Lively Wallpaper");
 	} else {
 		console.log("No Lively Wallpaper")
+		window.showLyrics = showLyrics;
+		window.syncOffset = syncOffset;
 	}
+	bk.css('filter', `blur(${backgroundBlur}px)`);
 	getLatest();
 	setInterval(nextBackground, 1000 * 60);
 	nextBackground();
