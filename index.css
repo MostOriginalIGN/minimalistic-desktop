@@ -138,7 +138,7 @@ npname{
   font-family: 'Poppins';
   text-rendering: optimizeLegibility;
   padding-left: 2rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 1200;
   width: 100%;
   align-self: flex-end;
@@ -147,8 +147,8 @@ npartist{
   font-family: 'Poppins';
   text-rendering: optimizeLegibility;
   padding-left: 2rem;
-  font-size: 2rem;
-  font-weight: 1200;
+  font-size: 1.5rem;
+  font-weight: 200;
   width: 100%;
 }
 #npImg{
@@ -162,6 +162,7 @@ npartist{
 #nptxtdiv {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
+  height: inherit;
 }
 
 version{
@@ -185,6 +186,8 @@ version{
   height: 10.5rem;
   overflow: hidden;
   transition: opacity 1s ease;
+  transform: translateY(-50%);
+  top: 50%;
 }
 .lyric-line{
   position: absolute;
