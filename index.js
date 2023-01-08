@@ -2,7 +2,7 @@
 
 // IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT 
 
-let version = "1.2.0-beta1";
+let version = "1.2.0-beta2";
 
 // CONFIG
 let api = 'PUT OPENWEATHERMAP API KEY HERE'
@@ -15,6 +15,7 @@ let showAMPM = false;
 let showLyrics = true;
 let syncOffset = 1;
 let backgroundBlur = 5;
+let middleAlign = true;
 // END CONFIG
 
 const wrapper = document.createElement('div');
@@ -359,11 +360,16 @@ function init() {
 		showSec = window.showSec;
 		showAMPM = window.showAMPM;
 		backgroundBlur = window.backgroundBlur;
+		middleAlign = window.middleAlign;
 		console.log("Lively Wallpaper");
 	} else {
 		console.log("No Lively Wallpaper")
 		window.showLyrics = showLyrics;
 		window.syncOffset = syncOffset;
+	}
+	if(middleAlign){
+		$('#lyrics-container').css('transform','translateY(-50%)');
+		$('#lyrics-container').css('top','50%');
 	}
 	bk.css('filter', `blur(${backgroundBlur}px)`);
 	getLatest();

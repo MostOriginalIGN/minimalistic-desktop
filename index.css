@@ -186,8 +186,8 @@ version{
   height: 10.5rem;
   overflow: hidden;
   transition: opacity 1s ease;
-  transform: translateY(-50%);
-  top: 50%;
+
+
 }
 .lyric-line{
   position: absolute;

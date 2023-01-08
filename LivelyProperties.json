@@ -60,5 +60,10 @@
         "min": 0,
         "step": 1,
         "value": 5 
+    },
+    "middleAlign": {
+        "type": "checkbox",
+        "value": true,
+        "text": "Middle Align Lyrics"
     }
 }
