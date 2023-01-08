@@ -91,6 +91,7 @@ function updateLyrics(lines) {
   document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
   document.getElementsByClassName('lyric-line')[1].style.top = "2rem"
   document.getElementsByClassName('lyric-line')[1].style.filter = "blur(0px)"
+  document.getElementsByClassName('lyric-line')[0].style.filter = "blur(3px)"
   document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
   document.getElementsByClassName('lyric-line')[2].style.top = "6rem"
   setTimeout(() => {
@@ -111,6 +112,7 @@ function updateLyrics(lines) {
       console.log('no lyric')
     }
     document.getElementsByClassName('lyric-line')[0].style.top = "2rem"
+    document.getElementsByClassName('lyric-line')[0].style.filter = "blur(0px)"
     document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
     document.getElementsByClassName('lyric-line')[1].style.top = "6rem"
     document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
