@@ -3,14 +3,14 @@
 cool minimalistic web desktop thing
 
 ![GitHub](https://img.shields.io/github/license/Astrogamer54/minimalistic-desktop)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop?include-prereleases)
 ![GitHub issues](https://img.shields.io/github/issues-raw/Astrogamer54/minimalistic-desktop)
-![minimalisticdesktop](https://user-images.githubusercontent.com/78519393/210159265-4d1c10fc-436a-4865-9ff3-86f848a65707.gif)
+![minimalistic desktop beta](https://user-images.githubusercontent.com/78519393/210684522-f8c8d1fe-a0e0-416f-a84d-987241c2f572.gif)
 
 To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) for Windows and [`Plash`](https://github.com/sindresorhus/Plash) for MacOS
 
 ## Download
-[![Download icon](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Download&query=$.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.2.zip)
+[![Download icon](https://img.shields.io/badge/dynamic/json?color=orange&label=Download&query=$.0.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.2.0-beta2.zip)
 
 [`BETA DOWNLOAD`](https://github.com/Astrogamer54/minimalistic-desktop/releases/tag/1.2.0-beta2) Manual Install
 
@@ -71,9 +71,6 @@ In `index.js` at the top of the file. set `numImg` to how many images you put an
 # Credits
 
 LRC Parser: https://github.com/anhthii/lrc-parser
-
-## Beta preview
-![minimalistic saver beta](https://user-images.githubusercontent.com/78519393/210684522-f8c8d1fe-a0e0-416f-a84d-987241c2f572.gif)
 
 
 # Other Stuff
