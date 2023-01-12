@@ -12,13 +12,11 @@ To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) fo
 ## Download
 [![Download icon](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Download&query=$.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.1.zip)
 
-For Windows With Lively Wallpaper, open Powershell, paste this line of code and run
-
-```iwr -useb https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.ps1 | iex```
+For Windows With Lively Wallpaper, drag and drop [`this file`](https://github.com/Astrogamer54/minimalistic-desktop/releases/download/v1.1.2/minimalistic-desktop-lively.zip) to Lively Window.
 
 For Mac paste this line of code into Terminal and run
 
-```curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/main/install.sh | sh```
+```curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/stable/install.sh | sh```
 
 # IMPORTANT!!!
 **API KEY NEEDED FOR WEATHER!**
@@ -93,7 +91,7 @@ past commits
 |d299b9c|Astrogamer54|12/10/2022|cool anims                                             |
 |9b3bfa0|Astrogamer54|12/10/2022|e                                                      |
 |fe01d17|Astrogamer54|12/10/2022|a                                                      |
-|b8421b2|Astrogamer54|12/10/2022|Merge remote-tracking branch 'refs/remotes/origin/main'|
+|b8421b2|Astrogamer54|12/10/2022|Merge remote-tracking branch 'refs/remotes/origin/    '|
 |b2a3411|Astrogamer54|12/10/2022|fix things                                             |
 |2f2ab59|Astrogamer54|12/10/2022|update 1                                               |
 |0c61cdd|Astrogamer54|12/10/2022|Delete readme.md                                       |
