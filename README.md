@@ -3,7 +3,7 @@
 cool minimalistic web desktop thing
 
 ![GitHub](https://img.shields.io/github/license/Astrogamer54/minimalistic-desktop)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop?include-prereleases)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop?include_prereleases)
 ![GitHub issues](https://img.shields.io/github/issues-raw/Astrogamer54/minimalistic-desktop)
 ![minimalistic desktop beta](https://user-images.githubusercontent.com/78519393/210684522-f8c8d1fe-a0e0-416f-a84d-987241c2f572.gif)
 
