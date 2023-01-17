@@ -80,91 +80,130 @@ function convertTime(string) {
 // End Of https://github.com/anhthii/lrc-parser
 
 // Lyrics
+
 function formatLyrics(lrc) {
-  const filteredScripts = lrc.scripts.filter(script => !script.text.includes('作曲') && !script.text.includes('作词')  && !script.text.includes('制作人') && !script.text.includes('编曲'));
+  // Format lyrics by removing lines with specific characters
+  const filteredScripts = lrc.scripts.filter(script => !script.text.includes('作曲') && !script.text.includes('作词') && !script.text.includes('制作人') && !script.text.includes('编曲'));
   return { ...lrc, scripts: filteredScripts };
 }
+
 function updateLyrics(lines) {
+  // Check if the current line and the next line are the same as the current line and next line being displayed, if so then return and do nothing
   if (lines.line[0] == document.getElementsByClassName('lyric-line')[0].textContent && currline == lines.line[1]) {
     return;
   }
+  // Update the current line being displayed
   currline = lines.line[1]
+  // Change the transition of the lyrics to take 0.5 seconds
   $('.lyric-line').css('transition', 'all 0.5s ease')
+  // Change the position of the current line being displayed
   document.getElementsByClassName('lyric-line')[0].style.top = "-4rem"
+  // Change the size and position of the next line being displayed
   document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
   document.getElementsByClassName('lyric-line')[1].style.top = "2rem"
+  // Remove blur from the next line being displayed
   document.getElementsByClassName('lyric-line')[1].style.filter = "blur(0px)"
+  // Add blur to the current line being displayed
   document.getElementsByClassName('lyric-line')[0].style.filter = "blur(3px)"
+  // Change the size of the next line being displayed
   document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
+  // Change the position of the line after the next
   document.getElementsByClassName('lyric-line')[2].style.top = "6rem"
+  // Wait for 0.5 seconds before updating the lyrics
   setTimeout(() => {
+    // Remove transition on the lyrics
     $('.lyric-line').css('transition', 'all 0s')
     try {
+      // Check if there is a current line, if not set the current line to an empty string
       if (lines.line == undefined) {
         document.getElementsByClassName('lyric-line')[0].innerText = ""
         return;
       }
+      // Check if there is a next line, if not set the next line to an empty string
       if (lines.nextLine == undefined) {
         document.getElementsByClassName('lyric-line')[1].innerText = ""
         return;
       }
+      // Update the current line, next line, and line after the next with the new lyrics
       document.getElementsByClassName('lyric-line')[0].innerText = lines.line[0]
       document.getElementsByClassName('lyric-line')[1].innerText = lines.nextLine[0]
       document.getElementsByClassName('lyric-line')[2].innerText = lines.after[0]
     } catch {
       console.log('no lyric')
     }
+    // Change the position of the current line being displayed
     document.getElementsByClassName('lyric-line')[0].style.top = "2rem"
+    // Remove blur from the current line being displayed
     document.getElementsByClassName('lyric-line')[0].style.filter = "blur(0px)"
+    // Change the size of the next line being displayed
     document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
+    // Change the position of the next line being displayed
     document.getElementsByClassName('lyric-line')[1].style.top = "6rem"
+    // Change the size of the line after the next
     document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
+    // Change the position of the line after the next
     document.getElementsByClassName('lyric-line')[2].style.top = "10rem"
+    // Add blur to the line after the next
     document.getElementsByClassName('lyric-line')[1].style.filter = "blur(3px)"
   }, 500)
-
 }
+
 function getCurrentLine(pos, lrc) {
+  // Check if lrc argument is undefined, if so return empty string and log 'no lyrics'
   try {
     if (lrc == undefined) {
-      console.log('no lyrics')
+      console.log('no lyrics');
       return "";
     }
-    currentTime = pos.split(':')
 
+    // Split pos argument into minutes and seconds and calculate current time in seconds
+    currentTime = pos.split(':');
     const currentTimeSec = (parseInt(currentTime[0]) * 60 + parseInt(currentTime[1]) + syncOffset);
-    if (currentTimeSec < lrc.scripts[0].start){
+
+    // Check if current time is less than the start time of the first line
+    if (currentTimeSec < lrc.scripts[0].start) {
       console.log('hi')
       return {
+        // Return the current line, next line and line after next one
         "line": [" ", -1],
-        "nextLine": [lrc.scripts[0].text,0],
-        "after": [lrc.scripts[1].text,1]
+        "nextLine": [lrc.scripts[0].text, 0],
+        "after": [lrc.scripts[1].text, 1]
       }
     }
+
+    // Iterate through the lyrics and check if current time is between start and end of a line
     for (let i = 0; i < lrc.scripts.length; i++) {
       if (currentTimeSec >= lrc.scripts[i].start && currentTimeSec < lrc.scripts[i].end) {
         return {
-          "line": [lrc.scripts[i].text,i],
-          "nextLine": [lrc.scripts[i + 1].text, i+1],
-          "after": [lrc.scripts[i + 2].text, i=2]
+          // Return the current line, next line and line after next one
+          "line": [lrc.scripts[i].text, i],
+          "nextLine": [lrc.scripts[i + 1].text, i + 1],
+          "after": [lrc.scripts[i + 2].text, i + 2]
         }
       }
     }
+    // If current time is not between any line, return empty string
     return "";
   } catch {
+    // If any error occurs, return empty string
     return "";
   }
 }
 
-
 async function findLyrics(name, artist, album) {
+  // Split the name to remove any parentheses and their contents
   const bname = name.split('(')[0];
 
+  // Encode the song name and artist for use in the API URL
   const song = encodeURIComponent(`${bname} ${artist}`)
+
+  // Log the encoded song name and artist
   console.log(song)
   try {
+    // Fetch song id from the API
     const id = await fetch(`https://music.xianqiao.wang/neteaseapiv2/search?limit=10&type=1&keywords=${song}`)
       .then(res => {
+        // Check if the response is ok
         if (res.ok) {
           return res.json();
         } else {
@@ -174,12 +213,19 @@ async function findLyrics(name, artist, album) {
       .then(data => {
         let index;
 
+        // Log the search url
         console.log(`https://music.xianqiao.wang/neteaseapiv2/search?limit=10&type=1&keywords=${song}`)
+
+        // Check if the song is found
         if (data.result.songs == undefined) {
           console.log("Song Not Found")
           return "No Lyrics";
         }
+
+        // Get all the songs from the search
         const songs = data.result.songs
+
+        // Iterate through the songs to find the correct one based on the album name
         for (let i = 0; i < songs.length; i++) {
           if (songs[i].album.name.toUpperCase() == album.toUpperCase()) {
             index = i;
@@ -192,6 +238,7 @@ async function findLyrics(name, artist, album) {
         }
         return data.result.songs[index].id;
       })
+    // Fetch the lyrics from the API
     const lyricData = await fetch(`https://music.xianqiao.wang/neteaseapiv2/lyric?id=${id}`)
       .then(res => {
         if (res.ok) {
@@ -203,6 +250,8 @@ async function findLyrics(name, artist, album) {
       .then(data => {
         return data.lrc.lyric;
       })
+
+    // Log the fetch url
     console.log(`https://music.xianqiao.wang/neteaseapiv2/lyric?id=${id}`)
     return lyricData;
   }
@@ -211,7 +260,6 @@ async function findLyrics(name, artist, album) {
     return "No Lyrics";
   }
 }
-
 
 // Now Playing
 
@@ -323,7 +371,7 @@ function progressBar(current, duration) {
   $('#progress-bar').css('width', `${prog}%`)
 }
 
-function updateVol(vol){
+function updateVol(vol) {
   currvol = vol;
   $('#volume').addClass('show-vol')
   $('#volume-fill').css('height', `${vol}%`)
@@ -381,7 +429,7 @@ function getData() {
       if (showLyrics) {
         updateLyrics(getCurrentLine(data.POSITION, lrc));
       }
-      if (currvol != data.VOLUME){
+      if (currvol != data.VOLUME) {
         updateVol(data.VOLUME);
       }
     })
