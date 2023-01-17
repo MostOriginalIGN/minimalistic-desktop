@@ -1,5 +1,6 @@
 var pendingTexts = {} // An object to store the pending texts for each element
 var currvol;
+var currline;
 
 let interval2 = {}; // An object to store the interval for the write function
 let interval = {}; // An object to store the interval for the clear function
@@ -84,9 +85,10 @@ function formatLyrics(lrc) {
   return { ...lrc, scripts: filteredScripts };
 }
 function updateLyrics(lines) {
-  if (lines.line == document.getElementsByClassName('lyric-line')[0].textContent) {
+  if (lines.line[0] == document.getElementsByClassName('lyric-line')[0].textContent && currline == lines.line[1]) {
     return;
   }
+  currline = lines.line[1]
   $('.lyric-line').css('transition', 'all 0.5s ease')
   document.getElementsByClassName('lyric-line')[0].style.top = "-4rem"
   document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
@@ -106,9 +108,9 @@ function updateLyrics(lines) {
         document.getElementsByClassName('lyric-line')[1].innerText = ""
         return;
       }
-      document.getElementsByClassName('lyric-line')[0].innerText = lines.line
-      document.getElementsByClassName('lyric-line')[1].innerText = lines.nextLine
-      document.getElementsByClassName('lyric-line')[2].innerText = lines.after
+      document.getElementsByClassName('lyric-line')[0].innerText = lines.line[0]
+      document.getElementsByClassName('lyric-line')[1].innerText = lines.nextLine[0]
+      document.getElementsByClassName('lyric-line')[2].innerText = lines.after[0]
     } catch {
       console.log('no lyric')
     }
@@ -134,17 +136,17 @@ function getCurrentLine(pos, lrc) {
     if (currentTimeSec < lrc.scripts[0].start){
       console.log('hi')
       return {
-        "line": " ",
-        "nextLine": lrc.scripts[0].text,
-        "after": lrc.scripts[1].text
+        "line": [" ", -1],
+        "nextLine": [lrc.scripts[0].text,0],
+        "after": [lrc.scripts[1].text,1]
       }
     }
     for (let i = 0; i < lrc.scripts.length; i++) {
       if (currentTimeSec >= lrc.scripts[i].start && currentTimeSec < lrc.scripts[i].end) {
         return {
-          "line": lrc.scripts[i].text,
-          "nextLine": lrc.scripts[i + 1].text,
-          "after": lrc.scripts[i + 2].text
+          "line": [lrc.scripts[i].text,i],
+          "nextLine": [lrc.scripts[i + 1].text, i+1],
+          "after": [lrc.scripts[i + 2].text, i=2]
         }
       }
     }
