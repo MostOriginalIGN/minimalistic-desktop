@@ -408,7 +408,7 @@ function getData() {
       if (pendingTexts['npName'] != data.TITLE) {
         console.log('attempting to write')
         updateType(data.TITLE, 'npName');
-        if (showLyrics) {
+        if (window.showLyrics) {
           $('.lyric-line').text('');
           lrc = ''
           findLyrics(data.TITLE, data.ARTIST, data.ALBUM)
@@ -426,7 +426,7 @@ function getData() {
         updateType(data.ARTIST, 'npArtist');
       }
       progressBar(data.POSITION, data.DURATION);
-      if (showLyrics) {
+      if (window.showLyrics) {
         updateLyrics(getCurrentLine(data.POSITION, lrc));
       }
       if (currvol != data.VOLUME) {
@@ -437,9 +437,6 @@ function getData() {
 }
 
 function init() {
-  const showLyrics = window.showLyrics;
-  const syncOffset = window.syncOffset;
-
   // Call the getData function every 1000ms (1 second)
   setInterval(getData, 1000)
 }
