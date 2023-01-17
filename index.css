@@ -206,3 +206,29 @@ version{
   background-color: rgba(0, 0, 0, 0.2);
   z-index: -1;
 }
+
+#volume{
+  position: absolute;
+  height: 15rem;
+  width: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 100px;
+  transform: translateY(-50%);
+  left: -1rem;
+  top: 50%;
+  transition: left 1s ease-in-out;
+}
+
+.show-vol{
+  left: 2rem !important;
+}
+
+#volume-fill{
+  display: block;
+  position: absolute;
+  border-radius: 100px;
+  background-color: white;
+  width: 100%;
+  bottom: 0;
+  transition: height 1s ease-in-out;
+}

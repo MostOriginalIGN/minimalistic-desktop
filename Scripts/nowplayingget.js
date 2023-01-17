@@ -1,4 +1,5 @@
 var pendingTexts = {} // An object to store the pending texts for each element
+var currvol;
 
 let interval2 = {}; // An object to store the interval for the write function
 let interval = {}; // An object to store the interval for the clear function
@@ -320,6 +321,14 @@ function progressBar(current, duration) {
   $('#progress-bar').css('width', `${prog}%`)
 }
 
+function updateVol(vol){
+  currvol = vol;
+  $('#volume').addClass('show-vol')
+  $('#volume-fill').css('height', `${vol}%`)
+  setTimeout(() => {
+    $('#volume').removeClass('show-vol')
+  }, 2000)
+}
 // The getData function fetches data from a server and updates the page with the new data
 function getData() {
   fetch('http://127.0.0.1:8975')
@@ -369,6 +378,9 @@ function getData() {
       progressBar(data.POSITION, data.DURATION);
       if (showLyrics) {
         updateLyrics(getCurrentLine(data.POSITION, lrc));
+      }
+      if (currvol != data.VOLUME){
+        updateVol(data.VOLUME);
       }
     })
 
