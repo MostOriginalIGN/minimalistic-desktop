@@ -4,7 +4,7 @@
 cool minimalistic web desktop thing
 
 ![GitHub](https://img.shields.io/github/license/Astrogamer54/minimalistic-desktop)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop?include_prereleases)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop)
 ![GitHub issues](https://img.shields.io/github/issues-raw/Astrogamer54/minimalistic-desktop)
 ![minimalistic desktop beta](https://user-images.githubusercontent.com/78519393/210684522-f8c8d1fe-a0e0-416f-a84d-987241c2f572.gif)
 
@@ -12,11 +12,9 @@ To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) fo
 
 ## Download
 
-[![Download icon](https://img.shields.io/badge/dynamic/json?color=orange&label=Download&query=$.0.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.2.0-beta2.zip)
+[![Download icon](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Download&query=$.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.2.0.zip)
 
-[`BETA DOWNLOAD`](https://github.com/Astrogamer54/minimalistic-desktop/releases/tag/1.2.0-beta2) Manual Install
-
-For Windows With Lively Wallpaper, drag and drop [`this file`](https://github.com/Astrogamer54/minimalistic-desktop/releases/download/v1.1.2/minimalistic-desktop-lively.zip) to Lively Window.
+For Windows With Lively Wallpaper, drag and drop [`this file`](https://github.com/Astrogamer54/minimalistic-desktop/releases/download/v1.2.0/minimalistic-desktop-lively.zip) to Lively Window.
 
 For Mac paste this line of code into Terminal and run
 
@@ -47,13 +45,17 @@ Original Config (`index.js`):
 
 ```js
 // CONFIG
-const api = 'PUT OPENWEATHERMAP API KEY HERE'
-const numImg = 1 // How Many Images You Put
-const wallpaperType = 1 // 0 = random local, 1 = random online
-const milTime = true;
-const celsius = false;
-const showSec = true;
-const showAMPM = false;
+let api = 'PUT OPENWEATHERMAP API KEY HERE'
+let numImg = 1 // How Many Images You Put
+let wallpaperType = 1 // 0 = random local, 1 = random online
+let milTime = true;
+let celsius = false;
+let showSec = true;
+let showAMPM = false;
+let showLyrics = true;
+let syncOffset = 1;
+let backgroundBlur = 5;
+let middleAlign = true;
 // END CONFIG
 ```
 
