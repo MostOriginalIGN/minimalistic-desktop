@@ -11,14 +11,24 @@
 </head>
 
 <body>
+  <div class="background">
+    <div class="dark"></div>
+  </div>
   <div class="splash"></div>
   </div>
+  <div id="lyrics-container">
+    <p class="lyric-line"></p>
+    <p class="lyric-line"></p>
+    <p class="lyric-line"></p>
+  </div>
+  
   <script src="Scripts/jquery-3.6.1.min.js"></script>
   <script src="index.js"></script>
   <script src="Scripts/nowplayingget.js"></script>
   <bot>
   </bot>
   <div id="progress-bar"></div>
+  <div id="volume"><span id="volume-fill"></span></div>
 </body>
 
 <script type="text/javascript">
@@ -52,6 +62,23 @@
       case "showAMPM":
         var showAMPM = val;
         window.showAMPM = showAMPM;
+        console.log(name, val);
+      case "showLyrics":
+        var showLyrics = val;
+        window.showLyrics = showLyrics;
+        console.log(name, val);
+      case "syncOffset":
+        var syncOffset = val;
+        window.syncOffset = syncOffset;
+        console.log(name, val);
+      case "backgroundBlur":
+        var backgroundBlur = val;
+        window.backgroundBlur = backgroundBlur;
+        console.log(name, val);
+        $('.background').css('filter', `blur(${backgroundBlur}px)`);
+      case "middleAlign":
+        var middleAlign = val;
+        window.middleAlign = middleAlign;
         console.log(name, val);
     }
   }

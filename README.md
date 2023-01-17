@@ -1,16 +1,20 @@
 
 # minimalistic desktop
+
 cool minimalistic web desktop thing
 
 ![GitHub](https://img.shields.io/github/license/Astrogamer54/minimalistic-desktop)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Astrogamer54/minimalistic-desktop?include_prereleases)
 ![GitHub issues](https://img.shields.io/github/issues-raw/Astrogamer54/minimalistic-desktop)
-![minimalisticdesktop](https://user-images.githubusercontent.com/78519393/210159265-4d1c10fc-436a-4865-9ff3-86f848a65707.gif)
+![minimalistic desktop beta](https://user-images.githubusercontent.com/78519393/210684522-f8c8d1fe-a0e0-416f-a84d-987241c2f572.gif)
 
 To be used with [`Lively Wallpaper`](https://rocksdanister.github.io/lively/) for Windows and [`Plash`](https://github.com/sindresorhus/Plash) for MacOS
 
 ## Download
-[![Download icon](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=Download&query=$.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases/latest&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.1.1.zip)
+
+[![Download icon](https://img.shields.io/badge/dynamic/json?color=orange&label=Download&query=$.0.tag_name&url=https://api.github.com/repos/Astrogamer54/minimalistic-desktop/releases&style=for-the-badge)](https://github.com/Astrogamer54/minimalistic-desktop/archive/refs/tags/v1.2.0-beta2.zip)
+
+[`BETA DOWNLOAD`](https://github.com/Astrogamer54/minimalistic-desktop/releases/tag/1.2.0-beta2) Manual Install
 
 For Windows With Lively Wallpaper, drag and drop [`this file`](https://github.com/Astrogamer54/minimalistic-desktop/releases/download/v1.1.2/minimalistic-desktop-lively.zip) to Lively Window.
 
@@ -18,7 +22,8 @@ For Mac paste this line of code into Terminal and run
 
 ```curl -fsSL https://raw.githubusercontent.com/Astrogamer54/minimalistic-desktop/stable/install.sh | sh```
 
-# IMPORTANT!!!
+# IMPORTANT
+
 **API KEY NEEDED FOR WEATHER!**
 
 [`OpenWeatherMap`](https://openweathermap.org/price)
@@ -29,18 +34,18 @@ EDIT CONFIG IN `index.js`
 **FOR SPOTIFY AND WEBNOWPLAYING SUPPORT NOW-PLAYING-SERVER IS NEEDED**
 [`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playing-server)
 
-## Config:
+## Config
 
 Lively Wallpaper:
 **Use Config in Lively Wallpaper Customization**
 
-![image](https://user-images.githubusercontent.com/78519393/210194436-b2e00e25-5a58-4292-ab87-0148670b8b41.png)
-
+![image](https://user-images.githubusercontent.com/78519393/211221219-3283be94-e23b-4cef-94bf-9c15ac4bc887.png)
 
 Other:
 
 Original Config (`index.js`):
-```
+
+```js
 // CONFIG
 const api = 'PUT OPENWEATHERMAP API KEY HERE'
 const numImg = 1 // How Many Images You Put
@@ -53,17 +58,26 @@ const showAMPM = false;
 ```
 
 ## Use Local Images
+
 In `/Resources` put your images in `.jpg` format labeled from 1 - <no. of imgs>
 
 Ex:
-```
+
+```text
 1.jpg
 2.jpg
 3.jpg
 ```
-In `index.js` at the top of the file. set `numImg` to how many images you put and `wallpaperType` to 0
-# Other Stuff
 
+In `index.js` at the top of the file. set `numImg` to how many images you put and `wallpaperType` to 0
+
+# Credits
+
+Lyrics API: [`NetEase`](https://music.xianqiao.wang/neteaseapiv2)
+
+LRC Parser: <https://github.com/anhthii/lrc-parser>
+
+# Other Stuff
 
 i fucked up repos and stuff oops so
 past commits
