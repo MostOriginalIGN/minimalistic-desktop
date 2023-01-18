@@ -32,7 +32,7 @@ EDIT CONFIG IN `index.js`
 **FOR SPOTIFY AND WEBNOWPLAYING SUPPORT NOW-PLAYING-SERVER IS NEEDED**
 [`Spotify/WebNowPlaying Support`](https://github.com/Astrogamer54/now-playing-server)
 
-# [`Documentation`](https://github.com/Astrogamer54/minimalistic-desktop/wiki)
+# [`Documentation`](https://github.com/Astrogamer54/minimalistic-desktop/wiki/Minimalistic-Desktop-Wiki)
 
 # Credits
 
