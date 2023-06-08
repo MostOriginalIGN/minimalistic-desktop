@@ -88,6 +88,9 @@ function formatLyrics(lrc) {
 }
 
 function updateLyrics(lines) {
+  if (lines.line == null){
+    return;
+  }
   // Check if the current line and the next line are the same as the current line and next line being displayed, if so then return and do nothing
   if (lines.line[0] == document.getElementsByClassName('lyric-line')[0].textContent && currline == lines.line[1]) {
     return;
