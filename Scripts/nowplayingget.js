@@ -16,52 +16,56 @@ function extractInfo(data) {
 }
 
 function lrcParser(data) {
-  if (typeof data !== 'string') {
-    throw new TypeError('expect first argument to be a string')
-  }
-  // split a long stirng into lines by system's end-of-line marker line \r\n on Windows
-  // or \n on POSIX
-  let lines = data.split('\n')
-  const timeStart = /\[(\d*\:\d*\.?\d*)\]/ // i.g [00:10.55]
-  const scriptText = /(.+)/ // Havana ooh na-na (ayy) 
-  const timeEnd = timeStart
-  const startAndText = new RegExp(timeStart.source + scriptText.source)
-
-
-  const infos = []
-  const scripts = []
-  const result = {}
-
-  for (let i = 0; startAndText.test(lines[i]) === false; i++) {
-    infos.push(lines[i])
-  }
-
-  infos.reduce((result, info) => {
-    const [key, value] = extractInfo(info)
-    result[key] = value
-    return result
-  }, result)
-
-  lines.splice(0, infos.length) // remove all info lines
-  const qualified = new RegExp(startAndText.source + '|' + timeEnd.source)
-  lines = lines.filter(line => qualified.test(line))
-
-  for (let i = 0, l = lines.length; i < l; i++) {
-    const matches = startAndText.exec(lines[i])
-    const timeEndMatches = timeEnd.exec(lines[i + 1])
-    if (matches && timeEndMatches) {
-      const [, start, text] = matches
-      const [, end] = timeEndMatches
-      scripts.push({
-        start: convertTime(start),
-        text,
-        end: convertTime(end),
-      })
+  try {
+    if (typeof data !== 'string') {
+      throw new TypeError('expect first argument to be a string')
     }
-  }
+    // split a long stirng into lines by system's end-of-line marker line \r\n on Windows
+    // or \n on POSIX
+    let lines = data.split('\n')
+    const timeStart = /\[(\d*\:\d*\.?\d*)\]/ // i.g [00:10.55]
+    const scriptText = /(.+)/ // Havana ooh na-na (ayy) 
+    const timeEnd = timeStart
+    const startAndText = new RegExp(timeStart.source + scriptText.source)
 
-  result.scripts = scripts
-  return result
+
+    const infos = []
+    const scripts = []
+    const result = {}
+
+    for (let i = 0; startAndText.test(lines[i]) === false; i++) {
+      infos.push(lines[i])
+    }
+
+    infos.reduce((result, info) => {
+      const [key, value] = extractInfo(info)
+      result[key] = value
+      return result
+    }, result)
+
+    lines.splice(0, infos.length) // remove all info lines
+    const qualified = new RegExp(startAndText.source + '|' + timeEnd.source)
+    lines = lines.filter(line => qualified.test(line))
+
+    for (let i = 0, l = lines.length; i < l; i++) {
+      const matches = startAndText.exec(lines[i])
+      const timeEndMatches = timeEnd.exec(lines[i + 1])
+      if (matches && timeEndMatches) {
+        const [, start, text] = matches
+        const [, end] = timeEndMatches
+        scripts.push({
+          start: convertTime(start),
+          text,
+          end: convertTime(end),
+        })
+      }
+    }
+
+    result.scripts = scripts
+    return result
+  } catch {
+    return;
+  }
 }
 
 // convert time string to seconds
@@ -83,6 +87,9 @@ function convertTime(string) {
 
 function formatLyrics(lrc) {
   // Format lyrics by removing lines with specific characters
+  if(lrc == null){
+    return { ...lrc, scripts: null };;
+  }
   const filteredScripts = lrc.scripts.filter(script => !script.text.includes('作曲') && !script.text.includes('作词') && !script.text.includes('制作人') && !script.text.includes('编曲'));
   return { ...lrc, scripts: filteredScripts };
 }
@@ -385,59 +392,63 @@ function updateVol(vol) {
 }
 // The getData function fetches data from a server and updates the page with the new data
 function getData() {
-  fetch('http://127.0.0.1:8975')
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error('Error fetching data');
-      }
-    })
-    .then(data => {
-      if (data.STATE == '1') {
-        $('#npdiv').css('opacity', 1);
-        $('#lyrics-container').css('opacity', 1);
-        $('#progress-bar').css('bottom', 0);
-      } else {
-        $('#npdiv').css('opacity', 0);
-        $('#lyrics-container').css('opacity', 0);
-        $('#progress-bar').css('bottom', '-0.2rem');
-      }
-      var src = $('#npImg').css('backgroundImage');
-      if (src != `url("${data.COVER}")`) {
-        document.getElementById('npImg').style.backgroundImage = `url('${data.COVER}')`;
-        console.log('update image');
-        console.log(src);
-      }
-      if (pendingTexts['npName'] != data.TITLE) {
-        console.log('attempting to write')
-        updateType(data.TITLE, 'npName');
-        if (window.showLyrics) {
-          $('.lyric-line').text('');
-          lrc = ''
-          findLyrics(data.TITLE, data.ARTIST, data.ALBUM)
-            .then(data => {
-              if (data != 'No Lyrics') {
-                lrc = formatLyrics(lrcParser(data));
-              } else {
-                lrc = ''
-              }
-
-            })
+  try {
+    fetch('http://127.0.0.1:8975')
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Error fetching data');
         }
-      }
-      if (pendingTexts['npArtist'] != data.ARTIST) {
-        updateType(data.ARTIST, 'npArtist');
-      }
-      progressBar(data.POSITION, data.DURATION);
-      if (window.showLyrics) {
-        updateLyrics(getCurrentLine(data.POSITION, lrc));
-      }
-      if (currvol != data.VOLUME) {
-        updateVol(data.VOLUME);
-      }
-    })
+      })
+      .then(data => {
+        if (data.STATE == '1') {
+          $('#npdiv').css('opacity', 1);
+          $('#lyrics-container').css('opacity', 1);
+          $('#progress-bar').css('bottom', 0);
+        } else {
+          $('#npdiv').css('opacity', 0);
+          $('#lyrics-container').css('opacity', 0);
+          $('#progress-bar').css('bottom', '-0.2rem');
+        }
+        var src = $('#npImg').css('backgroundImage');
+        if (src != `url("${data.COVER}")`) {
+          document.getElementById('npImg').style.backgroundImage = `url('${data.COVER}')`;
+          console.log('update image');
+          console.log(src);
+        }
+        if (pendingTexts['npName'] != data.TITLE) {
+          console.log('attempting to write')
+          updateType(data.TITLE, 'npName');
+          if (window.showLyrics) {
+            $('.lyric-line').text('');
+            lrc = ''
+            findLyrics(data.TITLE, data.ARTIST, data.ALBUM)
+              .then(data => {
+                if (data != 'No Lyrics') {
+                  lrc = formatLyrics(lrcParser(data));
+                } else {
+                  lrc = ''
+                }
 
+              })
+          }
+        }
+        if (pendingTexts['npArtist'] != data.ARTIST) {
+          updateType(data.ARTIST, 'npArtist');
+        }
+        progressBar(data.POSITION, data.DURATION);
+        if (window.showLyrics) {
+          updateLyrics(getCurrentLine(data.POSITION, lrc));
+        }
+        if (currvol != data.VOLUME) {
+          updateVol(data.VOLUME);
+        }
+      })
+  } catch {
+    lrc = ''
+    return;
+  }
 }
 
 function init() {
