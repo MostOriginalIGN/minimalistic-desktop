@@ -88,67 +88,68 @@ function formatLyrics(lrc) {
 }
 
 function updateLyrics(lines) {
-  if (lines.line[0] == null){
-    return;
-  }
-  // Check if the current line and the next line are the same as the current line and next line being displayed, if so then return and do nothing
-  if (lines.line[0] == document.getElementsByClassName('lyric-line')[0].textContent && currline == lines.line[1]) {
-    return;
-  }
-  // Update the current line being displayed
-  currline = lines.line[1]
-  // Change the transition of the lyrics to take 0.5 seconds
-  $('.lyric-line').css('transition', 'all 0.5s ease')
-  // Change the position of the current line being displayed
-  document.getElementsByClassName('lyric-line')[0].style.top = "-4rem"
-  // Change the size and position of the next line being displayed
-  document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
-  document.getElementsByClassName('lyric-line')[1].style.top = "2rem"
-  // Remove blur from the next line being displayed
-  document.getElementsByClassName('lyric-line')[1].style.filter = "blur(0px)"
-  // Add blur to the current line being displayed
-  document.getElementsByClassName('lyric-line')[0].style.filter = "blur(3px)"
-  // Change the size of the next line being displayed
-  document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
-  // Change the position of the line after the next
-  document.getElementsByClassName('lyric-line')[2].style.top = "6rem"
-  // Wait for 0.5 seconds before updating the lyrics
-  setTimeout(() => {
-    // Remove transition on the lyrics
-    $('.lyric-line').css('transition', 'all 0s')
-    try {
-      // Check if there is a current line, if not set the current line to an empty string
-      if (lines.line == undefined) {
-        document.getElementsByClassName('lyric-line')[0].innerText = ""
-        return;
-      }
-      // Check if there is a next line, if not set the next line to an empty string
-      if (lines.nextLine == undefined) {
-        document.getElementsByClassName('lyric-line')[1].innerText = ""
-        return;
-      }
-      // Update the current line, next line, and line after the next with the new lyrics
-      document.getElementsByClassName('lyric-line')[0].innerText = lines.line[0]
-      document.getElementsByClassName('lyric-line')[1].innerText = lines.nextLine[0]
-      document.getElementsByClassName('lyric-line')[2].innerText = lines.after[0]
-    } catch {
-      console.log('no lyric')
+  try {
+    // Check if the current line and the next line are the same as the current line and next line being displayed, if so then return and do nothing
+    if (lines.line[0] == document.getElementsByClassName('lyric-line')[0].textContent && currline == lines.line[1]) {
+      return;
     }
+    // Update the current line being displayed
+    currline = lines.line[1]
+    // Change the transition of the lyrics to take 0.5 seconds
+    $('.lyric-line').css('transition', 'all 0.5s ease')
     // Change the position of the current line being displayed
-    document.getElementsByClassName('lyric-line')[0].style.top = "2rem"
-    // Remove blur from the current line being displayed
-    document.getElementsByClassName('lyric-line')[0].style.filter = "blur(0px)"
+    document.getElementsByClassName('lyric-line')[0].style.top = "-4rem"
+    // Change the size and position of the next line being displayed
+    document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
+    document.getElementsByClassName('lyric-line')[1].style.top = "2rem"
+    // Remove blur from the next line being displayed
+    document.getElementsByClassName('lyric-line')[1].style.filter = "blur(0px)"
+    // Add blur to the current line being displayed
+    document.getElementsByClassName('lyric-line')[0].style.filter = "blur(3px)"
     // Change the size of the next line being displayed
     document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
-    // Change the position of the next line being displayed
-    document.getElementsByClassName('lyric-line')[1].style.top = "6rem"
-    // Change the size of the line after the next
-    document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
     // Change the position of the line after the next
-    document.getElementsByClassName('lyric-line')[2].style.top = "10rem"
-    // Add blur to the line after the next
-    document.getElementsByClassName('lyric-line')[1].style.filter = "blur(3px)"
-  }, 500)
+    document.getElementsByClassName('lyric-line')[2].style.top = "6rem"
+    // Wait for 0.5 seconds before updating the lyrics
+    setTimeout(() => {
+      // Remove transition on the lyrics
+      $('.lyric-line').css('transition', 'all 0s')
+      try {
+        // Check if there is a current line, if not set the current line to an empty string
+        if (lines.line == undefined) {
+          document.getElementsByClassName('lyric-line')[0].innerText = ""
+          return;
+        }
+        // Check if there is a next line, if not set the next line to an empty string
+        if (lines.nextLine == undefined) {
+          document.getElementsByClassName('lyric-line')[1].innerText = ""
+          return;
+        }
+        // Update the current line, next line, and line after the next with the new lyrics
+        document.getElementsByClassName('lyric-line')[0].innerText = lines.line[0]
+        document.getElementsByClassName('lyric-line')[1].innerText = lines.nextLine[0]
+        document.getElementsByClassName('lyric-line')[2].innerText = lines.after[0]
+      } catch {
+        console.log('no lyric')
+      }
+      // Change the position of the current line being displayed
+      document.getElementsByClassName('lyric-line')[0].style.top = "2rem"
+      // Remove blur from the current line being displayed
+      document.getElementsByClassName('lyric-line')[0].style.filter = "blur(0px)"
+      // Change the size of the next line being displayed
+      document.getElementsByClassName('lyric-line')[1].style.transform = "scale(1)"
+      // Change the position of the next line being displayed
+      document.getElementsByClassName('lyric-line')[1].style.top = "6rem"
+      // Change the size of the line after the next
+      document.getElementsByClassName('lyric-line')[1].style.transform = "scale(0.8)"
+      // Change the position of the line after the next
+      document.getElementsByClassName('lyric-line')[2].style.top = "10rem"
+      // Add blur to the line after the next
+      document.getElementsByClassName('lyric-line')[1].style.filter = "blur(3px)"
+    }, 500)
+  } catch {
+    return;
+  }
 }
 
 function getCurrentLine(pos, lrc) {
